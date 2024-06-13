@@ -1,0 +1,45 @@
+{
+    "name": "sizebay/sizebay-tracker",
+    "description": "SizeBay Tracker module for Magento 2",
+    "keywords": [
+        "magento 2",
+        "magento",
+        "sizebay",
+        "shopping tracker",
+        "magento 2 extension",
+        "magento 2 extension free"
+    ],
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "magento/framework": ">=102.0",
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "proprietary",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "SizeBay\\SizeBayTracker\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "Pedro Amorim"
+        },
+        {
+            "name": "SizeBay"
+        }
+    ],
+    "extra": {
+        "map": [
+            [
+                "*",
+                "SizeBay/SizeBayTracker"
+            ]
+        ]
+    }
+}
