@@ -1,0 +1,7 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="SizeBay\SizeBayTracker\Model\Config\Source\ProductAttributes">
+        <arguments>
+            <argument name="attributeCollectionFactory" xsi:type="object">Magento\Eav\Model\ResourceModel\Entity\Attribute\CollectionFactory</argument>
+        </arguments>
+    </type>
+</config>
