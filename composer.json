@@ -34,12 +34,4 @@
             "name": "SizeBay"
         }
     ],
-    "extra": {
-        "map": [
-            [
-                "*",
-                "SizeBay/SizeBayTracker"
-            ]
-        ]
-    }
 }
