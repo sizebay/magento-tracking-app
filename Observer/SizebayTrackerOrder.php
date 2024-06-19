@@ -1,6 +1,6 @@
 <?php
 
-namespace SizeBay\SizeBayTracker\Observer;
+namespace Sizebay\SizebayTracker\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
@@ -104,7 +104,7 @@ class SizebayTrackerOrder implements ObserverInterface
 
             curl_close($ch);
         } catch (\Exception $e) {
-            $this->logger->error('Error in SizeBayTracker fetch: ' . $e->getMessage());
+            $this->logger->error('Error in SizebayTracker fetch: ' . $e->getMessage());
         }
     }
 
@@ -115,7 +115,7 @@ class SizebayTrackerOrder implements ObserverInterface
         try {
             $this->executeOrderPluginRequest($order);
         } catch (\Exception $e) {
-            $this->logger->error('Error in SizeBayTracker observer: ' . $e->getMessage());
+            $this->logger->error('Error in SizebayTracker observer: ' . $e->getMessage());
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace SizeBay\SizeBayTracker\Controller\Adminhtml\Settings;
+namespace Sizebay\SizebayTracker\Controller\Adminhtml\Settings;
 
 use Magento\Backend\App\Action;
 use Magento\Framework\View\Result\PageFactory;
@@ -21,8 +21,8 @@ class Index extends Action
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->setActiveMenu('SizeBay_SizeBayTracker::sizebaytracker_settings');
-        $resultPage->getConfig()->getTitle()->prepend(__('SizeBay Tracker Settings'));
+        $resultPage->setActiveMenu('Sizebay_SizebayTracker::sizebaytracker_settings');
+        $resultPage->getConfig()->getTitle()->prepend(__('Sizebay Tracker Settings'));
 
         return $resultPage;
     }

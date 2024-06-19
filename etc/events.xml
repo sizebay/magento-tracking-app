@@ -1,15 +1,20 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="sales_order_place_before">
-        <observer name="sizebay_sessionid_observer" instance="SizeBay\SizeBayTracker\Observer\SizebaySessionId" />
+        <observer name="sizebay_sessionid_observer"
+            instance="Sizebay\SizebayTracker\Observer\SizebaySessionId" />
     </event>
     <event name="checkout_onepage_controller_success_action">
-        <observer name="sizebaytracker_observer" instance="SizeBay\SizeBayTracker\Observer\SizebayTrackerOrder" />
+        <observer name="sizebaytracker_observer"
+            instance="Sizebay\SizebayTracker\Observer\SizebayTrackerOrder" />
     </event>
     <event name="checkout_cart_save_before">
-        <observer name="sizebay_sessionid_cart_observer" instance="SizeBay\SizeBayTracker\Observer\SizebaySessionId" />
+        <observer name="sizebay_sessionid_cart_observer"
+            instance="Sizebay\SizebayTracker\Observer\SizebaySessionId" />
     </event>
     <event name="checkout_cart_add_product_complete">
-        <observer name="sizebaytracker_cart_observer" instance="SizeBay\SizeBayTracker\Observer\SizebayTrackerCart" />
+        <observer name="sizebaytracker_cart_observer"
+            instance="Sizebay\SizebayTracker\Observer\SizebayTrackerCart" />
     </event>
 </config>

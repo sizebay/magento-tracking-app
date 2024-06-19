@@ -1,6 +1,6 @@
 <?php
 
-namespace SizeBay\SizeBayTracker\Observer;
+namespace Sizebay\SizebayTracker\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
@@ -74,7 +74,7 @@ class SizebaySessionId implements ObserverInterface
         try {
             $this->requestSessionIdValidation();
         } catch (\Exception $e) {
-            $this->logger->error('Error in SizeBayTracker observer: ' . $e->getMessage());
+            $this->logger->error('Error in SizebayTracker observer: ' . $e->getMessage());
         }
     }
 }

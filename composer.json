@@ -1,6 +1,6 @@
 {
     "name": "sizebay/sizebay-tracker",
-    "description": "SizeBay Tracker module for Magento 2",
+    "description": "Sizebay Tracker module for Magento 2",
     "keywords": [
         "magento 2",
         "magento",
@@ -23,7 +23,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "SizeBay\\SizeBayTracker\\": ""
+            "Sizebay\\SizebayTracker\\": ""
         }
     },
     "authors": [
@@ -31,7 +31,7 @@
             "name": "Pedro Amorim"
         },
         {
-            "name": "SizeBay"
+            "name": "Sizebay"
         }
     ]
 }

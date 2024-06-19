@@ -1,5 +1,5 @@
 <?php
-namespace SizeBay\SizeBayTracker\Model\Config\Source;
+namespace Sizebay\SizebayTracker\Model\Config\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
 use Magento\Eav\Model\ResourceModel\Entity\Attribute\CollectionFactory as AttributeCollectionFactory;

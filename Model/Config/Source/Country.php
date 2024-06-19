@@ -1,5 +1,5 @@
 <?php
-namespace SizeBay\SizeBayTracker\Model\Config\Source;
+namespace Sizebay\SizebayTracker\Model\Config\Source;
 
 
 class Country implements \Magento\Framework\Option\ArrayInterface
