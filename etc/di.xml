@@ -4,9 +4,6 @@
         <arguments>
             <argument name="attributeCollectionFactory" xsi:type="object">
                 Magento\Eav\Model\ResourceModel\Entity\Attribute\CollectionFactory</argument>
-            <argument name="resource" xsi:type="object">
-                Sizebay\SizebayTracker\Model\ResourceModel\Referer</argument>
-
         </arguments>
     </type>
 </config>
