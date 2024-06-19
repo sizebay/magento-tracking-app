@@ -23,7 +23,7 @@ class Referer extends Value
             $registry,
             $config,
             $cacheTypeList,
-            null, // Assuming the resource model is not needed, pass null.
+            null,
             $resourceCollection,
             $data
         );

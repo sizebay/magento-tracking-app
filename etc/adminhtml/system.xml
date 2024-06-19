@@ -11,7 +11,6 @@
                 </field>
                 <field id="referer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Referer</label>
-                    <frontend_model>Sizebay\SizebayTracker\Model\Config\Source\Referer</frontend_model>
                 </field>
                 <field id="country" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Country</label>
