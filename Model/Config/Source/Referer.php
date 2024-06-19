@@ -4,7 +4,7 @@ namespace Sizebay\SizebayTracker\Model\Config\Source;
 
 use Magento\Framework\App\Config\Value;
 use Magento\Store\Model\StoreManagerInterface;
-use Sizebay\SizebayTracker\Model\ResourceModel\Referer as RefererResource;
+use Sizebay\SizebayTracker\Model\ResourceModel\RefererResource as RefererResource;
 
 class Referer extends Value
 {
