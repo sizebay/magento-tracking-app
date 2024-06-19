@@ -9,7 +9,7 @@
                 <field id="tenant_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Tenant ID</label>
                 </field>
-                <field id="referer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" backend_model="Sizebay\SizebayTracker\Model\Config\Backend\Referer">
+                <field id="referer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" backend_model="Sizebay\SizebayTracker\Model\Config\Source\Referer">
                     <label>Referer</label>
                 </field>
                 <field id="country" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
