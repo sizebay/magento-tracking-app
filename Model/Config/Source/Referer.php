@@ -1,4 +1,5 @@
 <?php
+<?php
 namespace Sizebay\SizebayTracker\Model\Config\Source;
 
 use Magento\Framework\App\Config\Value;
@@ -31,7 +32,8 @@ class Referer extends Value
 
     public function afterLoad()
     {
-        if ($this->getValue() === null) {
+        $referer = $this->getValue();
+        if ($referer === null || trim($referer) === '') {
             $baseUrl = $this->storeManager->getStore()->getBaseUrl();
             $domain = parse_url($baseUrl, PHP_URL_HOST);
             $this->setValue($domain);
