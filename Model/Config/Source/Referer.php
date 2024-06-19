@@ -1,5 +1,4 @@
 <?php
-<?php
 namespace Sizebay\SizebayTracker\Model\Config\Source;
 
 use Magento\Framework\App\Config\Value;
