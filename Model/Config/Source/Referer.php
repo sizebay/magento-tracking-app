@@ -14,8 +14,8 @@ class Referer extends Value
         \Magento\Framework\Registry $registry,
         \Magento\Framework\App\Config\ScopeConfigInterface $config,
         \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,
-        // Removed the incorrect argument and replaced it with null
-        $data = []
+        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
+        array $data = []
     ) {
         $this->storeManager = $storeManager;
         parent::__construct(
@@ -23,7 +23,8 @@ class Referer extends Value
             $registry,
             $config,
             $cacheTypeList,
-            null, // Corrected argument
+            null, // Assuming the resource model is not needed, pass null.
+            $resourceCollection,
             $data
         );
     }
@@ -38,4 +39,3 @@ class Referer extends Value
         return parent::afterLoad();
     }
 }
-
