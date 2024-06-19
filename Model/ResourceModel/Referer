@@ -1,0 +1,12 @@
+<?php
+namespace Sizebay\SizebayTracker\Model\ResourceModel;
+
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+
+class Referer extends AbstractDb
+{
+    protected function _construct()
+    {
+        $this->_init('core_config_data', 'config_id');
+    }
+}

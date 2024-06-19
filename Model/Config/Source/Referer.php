@@ -3,6 +3,7 @@ namespace Sizebay\SizebayTracker\Model\Config\Source;
 
 use Magento\Framework\App\Config\Value;
 use Magento\Store\Model\StoreManagerInterface;
+use Sizebay\SizebayTracker\Model\ResourceModel\Referer as RefererResource;
 
 class Referer extends Value
 {
@@ -14,6 +15,7 @@ class Referer extends Value
         \Magento\Framework\Registry $registry,
         \Magento\Framework\App\Config\ScopeConfigInterface $config,
         \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,
+        RefererResource $resource,
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $data = []
     ) {
@@ -23,7 +25,7 @@ class Referer extends Value
             $registry,
             $config,
             $cacheTypeList,
-            null,
+            $resource,
             $resourceCollection,
             $data
         );
