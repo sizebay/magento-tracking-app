@@ -14,7 +14,7 @@ class Referer extends Value
         \Magento\Framework\Registry $registry,
         \Magento\Framework\App\Config\ScopeConfigInterface $config,
         \Magento\Framework\App\Cache\TypeListInterface $cacheTypeList,
-        \Magento\Framework\App\Cache\Frontend\Pool $cacheFrontendPool,
+        // Removed the incorrect argument and replaced it with null
         $data = []
     ) {
         $this->storeManager = $storeManager;
@@ -23,7 +23,7 @@ class Referer extends Value
             $registry,
             $config,
             $cacheTypeList,
-            $cacheFrontendPool,
+            null, // Corrected argument
             $data
         );
     }
@@ -38,3 +38,4 @@ class Referer extends Value
         return parent::afterLoad();
     }
 }
+
