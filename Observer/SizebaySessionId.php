@@ -68,11 +68,21 @@ class SizebaySessionId implements ObserverInterface
         }
     }
 
+    public function isModuleActive()
+    {
+        return $this->scopeConfig->isSetFlag(
+            'sizebay_sizebaytracker/settings/active',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
 
     public function execute(Observer $observer)
     {
         try {
-            $this->requestSessionIdValidation();
+            if ($this->isModuleActive()) {
+                $this->requestSessionIdValidation();
+            }
         } catch (\Exception $e) {
             $this->logger->error('Error in SizebayTracker observer: ' . $e->getMessage());
         }

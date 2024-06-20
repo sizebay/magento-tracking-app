@@ -75,6 +75,14 @@ class SizebayTrackerCart implements ObserverInterface
         }
     }
 
+    public function isModuleActive()
+    {
+        return $this->scopeConfig->isSetFlag(
+            'sizebay_sizebaytracker/settings/active',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
     public function execute(Observer $observer)
     {
         $cart = $observer->getEvent()->getCart();
@@ -99,7 +107,9 @@ class SizebayTrackerCart implements ObserverInterface
 
             // Execute request only if there are newly added items
             if (!empty($addedItems)) {
-                $this->executeAddToCartPluginRequest($addedItems);
+                if ($this->isModuleActive()) {
+                    $this->executeAddToCartPluginRequest($addedItems);
+                }
             }
         } catch (\Exception $e) {
             $this->logger->error('Error in SizebayTracker observer: ' . $e->getMessage());
