@@ -12,9 +12,10 @@ class SizebaySessionId implements ObserverInterface
     protected $logger;
     protected $scopeConfig;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, ScopeConfigInterface $scopeConfig,)
     {
         $this->logger = $logger;
+        $this->scopeConfig = $scopeConfig;
     }
 
     private function requestSessionID($retryCount = 3)
