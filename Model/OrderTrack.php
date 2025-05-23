@@ -31,11 +31,74 @@ class OrderTrack implements OrderTrackInterface
         $this->country = $country;
     }
 
-    public function getOrderId() { return $this->orderId; }
-    public function getItems() { return $this->items; }
-    public function getTenantId() { return $this->tenantId; }
-    public function getReferer() { return $this->referer; }
-    public function getSessionId() { return $this->sessionId; }
-    public function getCurrency() { return $this->currency; }
-    public function getCountry() { return $this->country; }
+    /**
+     * Get order ID
+     *
+     * @return string
+     */
+    public function getOrderId()
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * Get order items
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * Get tenant ID
+     *
+     * @return string
+     */
+    public function getTenantId()
+    {
+        return $this->tenantId;
+    }
+
+    /**
+     * Get referer URL
+     *
+     * @return string
+     */
+    public function getReferer()
+    {
+        return $this->referer;
+    }
+
+    /**
+     * Get session ID
+     *
+     * @return string
+     */
+    public function getSessionId()
+    {
+        return $this->sessionId;
+    }
+
+    /**
+     * Get currency code
+     *
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * Get country code
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
 }
+?>
