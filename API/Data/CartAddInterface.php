@@ -7,4 +7,3 @@ interface CartAddInterface {
     public function getTenantId();
     public function getReferer();
 }
-?>
