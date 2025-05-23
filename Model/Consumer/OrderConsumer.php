@@ -2,6 +2,7 @@
     namespace Sizebay\SizebayTracker\Model\Consumer;
 
     use Psr\Log\LoggerInterface;
+    use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
 
     class OrderConsumer
     {
@@ -12,7 +13,7 @@
             $this->logger = $logger;
         }
     
-        public function process($data)
+        public function process(OrderTrackInterface $data)
         {
             $this->logger->info("Consumer Used:");
             try {
