@@ -23,7 +23,10 @@
 
                 $ch = curl_init($url);
 
-                $items = json_decode($data->getItems(), true);
+                $items = array_map(function ($item) {
+                    return json_decode($item, true); // Set to false if you want objects instead of arrays
+                }, $data->getItems());
+                
     
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_POST, true);
