@@ -77,6 +77,8 @@ class SizebayTrackerOrder implements ObserverInterface
                 ];
             }
 
+            $this->logger->info('SizebayTrackerOrder fired');
+
             $this->orderPublisher->publish([
                 'order_id' => $order->getId(),
                 'items' => $items,

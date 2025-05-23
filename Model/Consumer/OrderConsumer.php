@@ -44,7 +44,7 @@
                     throw new \Exception("cURL error: " . curl_error($ch));
                 }
                 curl_close($ch);
-    
+                $this->logger->info($response);
             } catch (\Exception $e) {
                 $this->logger->error('Error in OrderPlacedConsumer: ' . $e->getMessage());
             }
