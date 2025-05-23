@@ -6,6 +6,7 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Sizebay\SizebayTracker\Model\OrderTrackFactory;
 use Sizebay\SizebayTracker\Model\Publisher\OrderPublisher;
 use Magento\Store\Model\StoreManagerInterface;
 
@@ -14,16 +15,20 @@ class SizebayTrackerOrder implements ObserverInterface
     protected $logger;
     protected $scopeConfig;
     protected $orderPublisher;
+
+    protected $orderTrackFactory;
     protected $storeManager;
 
     public function __construct(
         LoggerInterface $logger,
         ScopeConfigInterface $scopeConfig,
         OrderPublisher $orderPublisher,
+        OrderTrackFactory $orderTrackFactory,
         StoreManagerInterface $storeManager
     ) {
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
+        $this->orderTrackFactory = $orderTrackFactory;
         $this->orderPublisher = $orderPublisher;
         $this->storeManager = $storeManager;
     }
@@ -79,15 +84,17 @@ class SizebayTrackerOrder implements ObserverInterface
 
             $this->logger->info('SizebayTrackerOrder fired');
 
-            $this->orderPublisher->publish([
-                'order_id' => $order->getId(),
-                'items' => $items,
-                'tenant_id' => $tenantId,
-                'referer' => $referer,
-                'session_id' => $sessionId,
-                'currency' => $order->getOrderCurrencyCode(),
-                'country' => $country,
-            ]);
+            $orderTrack = $this->orderTrackFactory->create();
+            $orderTrack->setOrderId($order->getId())
+                ->setItems($items)
+                ->setTenantId($tenantId)
+                ->setReferer($referer)
+                ->setSessionId($sessionId)
+                ->setCurrency($order->getOrderCurrencyCode())
+                ->setCountry($country);
+
+            $this->orderPublisher->publish($orderTrack);
+
 
         } catch (\Exception $e) {
             $this->logger->error('Error in SizebayTrackerOrder observer: ' . $e->getMessage());

@@ -5,31 +5,40 @@ use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
 
 class OrderTrack implements OrderTrackInterface
 {
+    /**
+     * @var string
+     */
     private $orderId;
-    private $items;
-    private $tenantId;
-    private $referer;
-    private $sessionId;
-    private $currency;
-    private $country;
 
-    public function __construct(
-        $orderId,
-        array $items,
-        $tenantId,
-        $referer,
-        $sessionId,
-        $currency,
-        $country
-    ) {
-        $this->orderId = $orderId;
-        $this->items = $items;
-        $this->tenantId = $tenantId;
-        $this->referer = $referer;
-        $this->sessionId = $sessionId;
-        $this->currency = $currency;
-        $this->country = $country;
-    }
+    /**
+     * @var array
+     */
+    private $items = [];
+
+    /**
+     * @var string
+     */
+    private $tenantId;
+
+    /**
+     * @var string
+     */
+    private $referer;
+
+    /**
+     * @var string
+     */
+    private $sessionId;
+
+    /**
+     * @var string
+     */
+    private $currency;
+
+    /**
+     * @var string
+     */
+    private $country;
 
     /**
      * Get order ID
@@ -39,6 +48,18 @@ class OrderTrack implements OrderTrackInterface
     public function getOrderId()
     {
         return $this->orderId;
+    }
+
+    /**
+     * Set order ID
+     *
+     * @param string $orderId
+     * @return $this
+     */
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+        return $this;
     }
 
     /**
@@ -52,6 +73,18 @@ class OrderTrack implements OrderTrackInterface
     }
 
     /**
+     * Set order items
+     *
+     * @param array $items
+     * @return $this
+     */
+    public function setItems(array $items)
+    {
+        $this->items = $items;
+        return $this;
+    }
+
+    /**
      * Get tenant ID
      *
      * @return string
@@ -59,6 +92,18 @@ class OrderTrack implements OrderTrackInterface
     public function getTenantId()
     {
         return $this->tenantId;
+    }
+
+    /**
+     * Set tenant ID
+     *
+     * @param string $tenantId
+     * @return $this
+     */
+    public function setTenantId($tenantId)
+    {
+        $this->tenantId = $tenantId;
+        return $this;
     }
 
     /**
@@ -72,6 +117,18 @@ class OrderTrack implements OrderTrackInterface
     }
 
     /**
+     * Set referer URL
+     *
+     * @param string $referer
+     * @return $this
+     */
+    public function setReferer($referer)
+    {
+        $this->referer = $referer;
+        return $this;
+    }
+
+    /**
      * Get session ID
      *
      * @return string
@@ -79,6 +136,18 @@ class OrderTrack implements OrderTrackInterface
     public function getSessionId()
     {
         return $this->sessionId;
+    }
+
+    /**
+     * Set session ID
+     *
+     * @param string $sessionId
+     * @return $this
+     */
+    public function setSessionId($sessionId)
+    {
+        $this->sessionId = $sessionId;
+        return $this;
     }
 
     /**
@@ -92,6 +161,18 @@ class OrderTrack implements OrderTrackInterface
     }
 
     /**
+     * Set currency code
+     *
+     * @param string $currency
+     * @return $this
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+        return $this;
+    }
+
+    /**
      * Get country code
      *
      * @return string
@@ -100,5 +181,16 @@ class OrderTrack implements OrderTrackInterface
     {
         return $this->country;
     }
+
+    /**
+     * Set country code
+     *
+     * @param string $country
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+        return $this;
+    }
 }
-?>

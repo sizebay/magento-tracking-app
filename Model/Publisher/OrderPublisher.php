@@ -15,9 +15,9 @@ class OrderPublisher
         $this->publisher = $publisher;
     }
 
-    public function publish(array $data)
+    public function publish(OrderTrack $orderTrack)
     {
-        $this->publisher->publish(self::TOPIC_NAME, $data);
+        $this->publisher->publish(self::TOPIC_NAME, $orderTrack);
     }
 }
 ?>
