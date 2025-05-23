@@ -18,9 +18,44 @@ class CartAdd implements CartAddInterface
         $this->referer = $referer;
     }
 
-    public function getItems() { return $this->items; }
-    public function getSessionId() { return $this->sessionId; }
-    public function getTenantId() { return $this->tenantId; }
-    public function getReferer() { return $this->referer; }
+    /**
+     * Get cart items
+     *
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * Get session ID
+     *
+     * @return string
+     */
+    public function getSessionId()
+    {
+        return $this->sessionId;
+    }
+
+    /**
+     * Get tenant ID
+     *
+     * @return string
+     */
+    public function getTenantId()
+    {
+        return $this->tenantId;
+    }
+
+    /**
+     * Get referer URL
+     *
+     * @return string
+     */
+    public function getReferer()
+    {
+        return $this->referer;
+    }
 }
 ?>
