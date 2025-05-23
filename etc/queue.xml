@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Queue:etc/queue.xsd">
+    <topic name="sizebay.cart.add" request="array">
+        <publisher>default</publisher>
+        <consumer name="sizebay.cart.add.consumer" instance="Sizebay\SizebayTracker\Model\Consumer\CartAddConsumer" method="process" />
+    </topic>
+     <topic name="sizebay.order" request="array">
+        <publisher>default</publisher>
+        <consumer name="sizebay.order.consumer" instance="Sizebay\SizebayTracker\Model\Consumer\OrderConsumer" method="process" />
+    </topic>
+</config>
