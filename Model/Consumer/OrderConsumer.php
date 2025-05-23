@@ -22,16 +22,18 @@
                 $this->logger->info($url);
 
                 $ch = curl_init($url);
+
+                $items = json_decode($data->getItems(), true);
     
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS,[
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
                     "orderId" => $data->getOrderId(),
-                    "items" => $data->getItems(),
+                    "items" => $items,
                     "tenantId" => $data->getTenantId(),
                     "currency" => $data->getCurrency(),
                     "country" => $data->getCountry()
-                ]);
+                ]));
                 curl_setopt($ch, CURLOPT_HTTPHEADER, [
                     'content-type: application/json',
                     'accept: application/json',
