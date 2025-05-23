@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+
+    <consumer name="sizebay.cart.add.consumer"
+              queue="sizebay.cart.add.queue"
+              handler="Sizebay\SizebayTracker\Model\Consumer\CartAddConsumer::process"
+              connection="amqp"
+              maxMessages="100"
+              onlySpawnWhenMessageAvailable="1"/>
+
+    <consumer name="sizebay.order.consumer"
+              queue="sizebay.order.queue"
+              handler="Sizebay\SizebayTracker\Model\Consumer\OrderConsumer::process"
+              connection="amqp"
+              maxMessages="100"
+              onlySpawnWhenMessageAvailable="1"/>
+
+</config>
