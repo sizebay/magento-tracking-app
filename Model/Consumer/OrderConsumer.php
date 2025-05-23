@@ -17,7 +17,7 @@
         {
             $this->logger->info("Consumer Used:");
             try {
-                $url = "https://vfr-v3-production.sizebay.technology/plugin/new/ordered?sid=" . $data['session_id'];
+                $url = "https://vfr-v3-production.sizebay.technology/plugin/new/ordered?sid=" . $data->getSessionId();
     
                 $this->logger->info($url);
 
@@ -26,18 +26,18 @@
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_POST, true);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-                    "orderId" => $data['order_id'],
-                    "items" => $data['items'],
-                    "tenantId" => $data['tenant_id'],
-                    "currency" => $data['currency'],
-                    "country" => $data['country']
+                    "orderId" => $data->getOrderId(),
+                    "items" => $data->getItems(),
+                    "tenantId" => $data->getTenantId(),
+                    "currency" => $data->getCurrency(),
+                    "country" => $data->getCountry()
                 ]));
                 curl_setopt($ch, CURLOPT_HTTPHEADER, [
                     'content-type: application/json',
                     'accept: application/json',
                     'device: DESKTOP',
-                    'tenant_id: ' . $data['tenant_id'],
-                    'referer: ' . $data['referer'],
+                    'tenant_id: ' . $data->getTenantId(),
+                    'referer: ' . $data->getReferer(),
                 ]);
 
                 $this->logger->info($ch);
