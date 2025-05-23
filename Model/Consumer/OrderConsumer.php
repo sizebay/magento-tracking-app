@@ -2,8 +2,6 @@
     namespace Sizebay\SizebayTracker\Model\Queue;
 
     use Psr\Log\LoggerInterface;
-    use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
-    use Magento\Sales\Api\OrderRepositoryInterface;
 
     class OrderConsumer
     {
@@ -16,6 +14,7 @@
     
         public function process($data)
         {
+            $this->logger->info("Consumer Used:");
             try {
                 $url = "https://vfr-v3-production.sizebay.technology/plugin/new/ordered?sid=" . $data['session_id'];
     
