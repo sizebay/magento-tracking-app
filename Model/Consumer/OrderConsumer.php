@@ -19,6 +19,8 @@
             try {
                 $url = "https://vfr-v3-production.sizebay.technology/plugin/new/ordered?sid=" . $data['session_id'];
     
+                $this->logger->info($url);
+
                 $ch = curl_init($url);
     
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -37,10 +39,13 @@
                     'tenant_id: ' . $data['tenant_id'],
                     'referer: ' . $data['referer'],
                 ]);
+
+                $this->logger->info($ch);
     
                 $response = curl_exec($ch);
                 $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                 if ($response === false) {
+                    $this->logger->exception("cURL error: " . curl_error($ch));
                     throw new \Exception("cURL error: " . curl_error($ch));
                 }
                 curl_close($ch);
