@@ -39,13 +39,10 @@
                     'tenant_id: ' . $data->getTenantId(),
                     'referer: ' . $data->getReferer(),
                 ]);
-
-                $this->logger->info($ch);
     
                 $response = curl_exec($ch);
                 $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                 if ($response === false) {
-                    $this->logger->exception("cURL error: " . curl_error($ch));
                     throw new \Exception("cURL error: " . curl_error($ch));
                 }
                 curl_close($ch);
