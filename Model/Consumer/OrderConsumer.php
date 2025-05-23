@@ -1,5 +1,5 @@
 <?php
-    namespace Sizebay\SizebayTracker\Model\Queue;
+    namespace Sizebay\SizebayTracker\Model\Consumer;
 
     use Psr\Log\LoggerInterface;
 
