@@ -13,7 +13,7 @@ class SizebayTrackerOrder implements ObserverInterface
 {
     protected $logger;
     protected $scopeConfig;
-    protected $orderPlacedPublisher;
+    protected $orderPublisher;
     protected $storeManager;
 
     public function __construct(
