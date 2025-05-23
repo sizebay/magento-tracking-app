@@ -2,7 +2,7 @@
 namespace Sizebay\SizebayTracker\Model\Publisher;
 
 use Magento\Framework\MessageQueue\PublisherInterface;
-use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
+use SIzebay\SizebayTracker\Api\Data\OrderTrackInterface;
 
 class OrderPublisher
 {
@@ -15,7 +15,7 @@ class OrderPublisher
         $this->publisher = $publisher;
     }
 
-    public function publish(OrderTrack $orderTrack)
+    public function publish(OrderTrackInterface $orderTrack)
     {
         $this->publisher->publish(self::TOPIC_NAME, $orderTrack);
     }
