@@ -25,13 +25,13 @@
     
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+                curl_setopt($ch, CURLOPT_POSTFIELDS,[
                     "orderId" => $data->getOrderId(),
                     "items" => $data->getItems(),
                     "tenantId" => $data->getTenantId(),
                     "currency" => $data->getCurrency(),
                     "country" => $data->getCountry()
-                ]));
+                ]);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, [
                     'content-type: application/json',
                     'accept: application/json',
@@ -39,6 +39,15 @@
                     'tenant_id: ' . $data->getTenantId(),
                     'referer: ' . $data->getReferer(),
                 ]);
+
+                $this->logger->info('Outgoing Payload: ' . json_encode([
+                    "orderId" => $data->getOrderId(),
+                    "items" => $data->getItems(),
+                    "tenantId" => $data->getTenantId(),
+                    "currency" => $data->getCurrency(),
+                    "country" => $data->getCountry()
+                ]));
+                
     
                 $response = curl_exec($ch);
                 $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
