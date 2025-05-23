@@ -11,7 +11,7 @@ class OrderTrack implements OrderTrackInterface
     private $orderId;
 
     /**
-     * @var array
+     * @var string[]
      */
     private $items = [];
 
@@ -65,7 +65,7 @@ class OrderTrack implements OrderTrackInterface
     /**
      * Get order items
      *
-     * @return array
+     * @return string[]
      */
     public function getItems()
     {
@@ -75,7 +75,7 @@ class OrderTrack implements OrderTrackInterface
     /**
      * Set order items
      *
-     * @param array $items
+     * @param string[] $items
      * @return $this
      */
     public function setItems(array $items)
