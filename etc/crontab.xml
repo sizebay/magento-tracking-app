@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="run_cart_add_consumer" instance="Vendor\Module\Cron\RunCartAddConsumer" method="execute">
+            <schedule>* * * * *</schedule> <!-- every minute -->
+        </job>
+        <job name="run_order_consumer" instance="Vendor\Module\Cron\RunOrderConsumer" method="execute">
+            <schedule>*/2 * * * *</schedule> <!-- every 2 minutes -->
+        </job>
+    </group>
+</config>

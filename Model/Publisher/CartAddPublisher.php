@@ -21,4 +21,3 @@ class CartAddPublisher
         $this->publisher->publish(self::TOPIC_NAME, $cartAdd);
     }
 }
-}
