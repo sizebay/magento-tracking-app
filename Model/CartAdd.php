@@ -21,7 +21,7 @@ class CartAdd implements CartAddInterface
     /**
      * Get cart items
      *
-     * @return array
+     * @return string[]
      */
     public function getItems()
     {

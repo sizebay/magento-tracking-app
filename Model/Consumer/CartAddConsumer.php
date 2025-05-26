@@ -18,8 +18,12 @@ class CartAddConsumer
         try {
             $url = "https://vfr-v3-production.sizebay.technology/plugin/new/cart?sid=" . $cartAdd->getSessionId();
 
+            $items = array_map(function ($item) {
+                return json_decode($item, true); 
+            }, $cartAdd->getItems());
+            
             $data = [
-                "products" => $cartAdd->getItems(),
+                "products" => $items,
                 "tenantId" => $cartAdd->getTenantId()
             ];
 

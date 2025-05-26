@@ -8,7 +8,7 @@ class OrderPublisher
 {
     const TOPIC_NAME = 'sizebay.order';
 
-    private $publisher;
+    protected $publisher;
 
     public function __construct(PublisherInterface $publisher)
     {

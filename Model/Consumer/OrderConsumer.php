@@ -24,7 +24,7 @@
                 $ch = curl_init($url);
 
                 $items = array_map(function ($item) {
-                    return json_decode($item, true); // Set to false if you want objects instead of arrays
+                    return json_decode($item, true); 
                 }, $data->getItems());
                 
     
