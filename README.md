@@ -19,11 +19,11 @@ To get started with the Sizebay Tracker, follow these steps:
 1. **Upload the module:**
   Copy the cloned repository to the modules directory of your Magento 2 following this steps:
     ```bash
-    mkdir /path-to-your-prestashop/app/code/Sizebay
+    mkdir /path-to-your-magento/app/code/Sizebay
     cd $_
     mkdir ./SizebayTracker
     cd $_
-    cp -r /path-to-your-cloned-respository/prestashop-tracking-app/* ./
+    cp -r /path-to-your-cloned-respository/magento-tracking-app/* ./
     ```
     <br>
 2. **Install the module:**
