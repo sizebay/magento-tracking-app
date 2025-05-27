@@ -13,7 +13,7 @@
         <observer name="sizebay_sessionid_cart_observer"
             instance="Sizebay\SizebayTracker\Observer\SizebaySessionId" />
     </event>
-    <event name="checkout_cart_add_product_complete">
+    <event name="checkout_cart_product_add_after">
         <observer name="sizebaytracker_cart_observer"
             instance="Sizebay\SizebayTracker\Observer\SizebayTrackerCart" />
     </event>
