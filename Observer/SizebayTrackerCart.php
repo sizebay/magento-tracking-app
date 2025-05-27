@@ -66,6 +66,8 @@ class SizebayTrackerCart implements ObserverInterface
 
                 $sessionId = $_COOKIE['SIZEBAY_SESSION_ID_V4'] ?? '';
 
+                $this->logger->info('SizebayTrackerCart fired');
+
                 $cartAdd = new CartAdd($addedItems, $sessionId, $tenantId, $referer);
                 $this->cartAddPublisher->publish($cartAdd);
             }
