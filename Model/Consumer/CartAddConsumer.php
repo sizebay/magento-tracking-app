@@ -15,8 +15,11 @@ class CartAddConsumer
 
     public function process(CartAddInterface $cartAdd)
     {
+        $this->logger->info("Sizebay CartAdd Consumer Used:");
         try {
             $url = "https://vfr-v3-production.sizebay.technology/plugin/new/cart?sid=" . $cartAdd->getSessionId();
+
+            $this->logger->info($url);
 
             $items = array_map(function ($item) {
                 return json_decode($item, true); 
@@ -44,6 +47,7 @@ class CartAddConsumer
                 $this->logger->error('Cart tracking failed: ' . curl_error($ch));
             }
 
+            $this->logger->info($response);
             curl_close($ch);
         } catch (\Exception $e) {
             $this->logger->error('Sizebay Cart Queue Error: ' . $e->getMessage());

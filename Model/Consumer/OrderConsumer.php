@@ -15,7 +15,7 @@
     
         public function process(OrderTrackInterface $data)
         {
-            $this->logger->info("Consumer Used:");
+            $this->logger->info("Sizebay Order Consumer Used:");
             try {
                 $url = "https://vfr-v3-production.sizebay.technology/plugin/new/ordered?sid=" . $data->getSessionId();
     
