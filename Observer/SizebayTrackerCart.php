@@ -7,72 +7,26 @@ use Magento\Framework\Event\Observer;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Checkout\Model\Session as CheckoutSession;
+use Sizebay\SizebayTracker\Model\Publisher\CartAddPublisher;
+use Sizebay\SizebayTracker\Model\CartAdd;
 
 class SizebayTrackerCart implements ObserverInterface
 {
     protected $logger;
     protected $scopeConfig;
     protected $checkoutSession;
+    protected $cartAddPublisher;
 
     public function __construct(
         LoggerInterface $logger,
         ScopeConfigInterface $scopeConfig,
-        CheckoutSession $checkoutSession
+        CheckoutSession $checkoutSession,
+        CartAddPublisher $cartAddPublisher
     ) {
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
         $this->checkoutSession = $checkoutSession;
-    }
-
-    private function executeAddToCartPluginRequest($addedItems)
-    {
-        try {
-            $tenant_id = strval($this->scopeConfig->getValue('sizebay_sizebaytracker/settings/tenant_id', \Magento\Store\Model\ScopeInterface::SCOPE_STORE));
-            $referer = strval($this->scopeConfig->getValue('sizebay_sizebaytracker/settings/referer', \Magento\Store\Model\ScopeInterface::SCOPE_STORE));
-
-            $sessionId = $_COOKIE["SIZEBAY_SESSION_ID_V4"];
-            $url = "https://vfr-v3-production.sizebay.technology/plugin/new/cart?sid=" . $sessionId;
-
-            $items = [];
-
-            foreach ($addedItems as $item) {
-                $items[] = [
-                    "permalink" => $item['permalink'],
-                ];
-            }
-
-            $data = [
-                "products" => $items,
-                "tenantId" => $tenant_id,
-            ];
-
-            $ch = curl_init($url);
-
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'content-type: application/json',
-                'accept: application/json',
-                'device: DESKTOP',
-                'tenant_id: ' . $tenant_id,
-                'referer: ' . $referer,
-            ]);
-
-            $response = curl_exec($ch);
-            $httpcode = curl_getinfo($ch);
-            $error = curl_error($ch);
-
-            if ($response === false) {
-                $errno = curl_errno($ch);
-                curl_close($ch);
-                throw new \Exception(sprintf('Response code : %s. Error : %s', (string) $httpcode['http_code'], $error), $errno);
-            }
-
-            curl_close($ch);
-        } catch (\Exception $e) {
-            $this->logger->error('Error in SizebayTracker fetch: ' . $e->getMessage());
-        }
+        $this->cartAddPublisher = $cartAddPublisher;
     }
 
     public function isModuleActive()
@@ -85,34 +39,40 @@ class SizebayTrackerCart implements ObserverInterface
 
     public function execute(Observer $observer)
     {
-        $cart = $observer->getEvent()->getCart();
         try {
             $quote = $this->checkoutSession->getQuote();
             $items = $quote->getAllVisibleItems();
             $previousItems = $this->checkoutSession->getSizebayAddedItems() ?: [];
 
-            // Find newly added items
             $addedItems = [];
             foreach ($items as $item) {
                 $productId = $item->getProduct()->getId();
                 if (!in_array($productId, $previousItems)) {
                     $addedItems[] = [
-                        "permalink" => $item->getProduct()->getProductUrl(), // Adjust permalink retrieval
+                        "product_id" => $productId,
+                        "permalink" => $item->getProduct()->getProductUrl(),
                     ];
                 }
             }
 
-            // Update session with current added items
-            $this->checkoutSession->setSizebayAddedItems(array_merge($previousItems, array_column($addedItems, 'product_id')));
+            $this->checkoutSession->setSizebayAddedItems(array_merge(
+                $previousItems,
+                array_column($addedItems, 'product_id')
+            ));
 
-            // Execute request only if there are newly added items
-            if (!empty($addedItems)) {
-                if ($this->isModuleActive()) {
-                    $this->executeAddToCartPluginRequest($addedItems);
-                }
+            if (!empty($addedItems) && $this->isModuleActive()) {
+                $tenantId = $this->scopeConfig->getValue('sizebay_sizebaytracker/settings/tenant_id', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+                $referer = $this->scopeConfig->getValue('sizebay_sizebaytracker/settings/referer', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+
+                $sessionId = $_COOKIE['SIZEBAY_SESSION_ID_V4'] ?? '';
+
+                $this->logger->info('SizebayTrackerCart fired');
+
+                $cartAdd = new CartAdd($addedItems, $sessionId, $tenantId, $referer);
+                $this->cartAddPublisher->publish($cartAdd);
             }
         } catch (\Exception $e) {
-            $this->logger->error('Error in SizebayTracker observer: ' . $e->getMessage());
+            $this->logger->error('Error in SizebayTrackerCart observer: ' . $e->getMessage());
         }
     }
 }

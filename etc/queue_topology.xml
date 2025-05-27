@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+
+    <exchange name="magento" type="topic" connection="amqp">
+        <binding id="sizebay.cart.add.binding" topic="sizebay.cart.add" destinationType="queue" destination="sizebay.cart.add.queue"/>
+        <binding id="sizebay.order.binding" topic="sizebay.order" destinationType="queue" destination="sizebay.order.queue"/>
+    </exchange>
+
+</config>
