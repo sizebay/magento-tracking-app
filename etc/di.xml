@@ -6,6 +6,6 @@
                 Magento\Eav\Model\ResourceModel\Entity\Attribute\CollectionFactory</argument>
         </arguments>
     </type>
-    <type name="Sizebay\SizebayTracker\Model\Cron\RunCartAddConsumer" />
-    <type name="Sizebay\SizebayTracker\Model\Cron\RunOrderConsumer" />
+    <type name="Sizebay\SizebayTracker\Cron\RunCartAddConsumer" />
+    <type name="Sizebay\SizebayTracker\Cron\RunOrderConsumer" />
 </config>
