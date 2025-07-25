@@ -1,7 +1,6 @@
 <?php
 
-namespace Sizebay\SizebayTracker\Model\Cron;
-
+namespace Sizebay\SizebayTracker\Cron;
 class RunOrderConsumer
 {
     public function execute()
