@@ -2,14 +2,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_MessageQueue:etc/communication.xsd">
 
-    <topic name="sizebay.order" schema="Sizebay\SizebayTracker\Api\Data\OrderTrackInterface">
-        <publisher>default</publisher>
-        <consumer>sizebay.order</consumer>
+    <topic name="sizebay.order" schema="Sizebay\SizebayTracker\Api\Data\OrderTrackInterface::getData">
+        <handler name="sizebay.order"/>
     </topic>
 
-    <topic name="sizebay.cart.add" schema="Sizebay\SizebayTracker\Api\Data\CartAddInterface">
-        <publisher>default</publisher>
-        <consumer>sizebay.cart.add</consumer>
+    <topic name="sizebay.cart.add" schema="Sizebay\SizebayTracker\Api\Data\CartAddInterface::getData">
+        <handler name="sizebay.cart.add"/>
     </topic>
 
 </config>
