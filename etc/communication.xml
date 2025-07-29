@@ -3,11 +3,15 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_MessageQueue:etc/communication.xsd">
 
     <topic name="sizebay.order" schema="Sizebay\SizebayTracker\Api\Data\OrderTrackInterface::getData">
-        <handler name="sizebay.order"/>
+        <handler name="sizebay.order"
+                 type="Sizebay\SizebayTracker\Model\Consumer\OrderConsumer"
+                 method="process"/>
     </topic>
 
     <topic name="sizebay.cart.add" schema="Sizebay\SizebayTracker\Api\Data\CartAddInterface::getData">
-        <handler name="sizebay.cart.add"/>
+        <handler name="sizebay.cart.add"
+                 type="Sizebay\SizebayTracker\Model\Consumer\CartAddConsumer"
+                 method="process"/>
     </topic>
 
 </config>
