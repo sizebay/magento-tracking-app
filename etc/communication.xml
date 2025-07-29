@@ -1,8 +1,15 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_MessageQueue:etc/communication.xsd">
 
-    <topic name="sizebay.cart.add" request="Sizebay\SizebayTracker\Model\CartAdd"/>
-    <topic name="sizebay.order" request="Sizebay\SizebayTracker\Model\OrderTrack"/>
+    <topic name="sizebay.order" schema="Sizebay\SizebayTracker\Api\Data\OrderTrackInterface">
+        <publisher>default</publisher>
+        <consumer>sizebay.order</consumer>
+    </topic>
+
+    <topic name="sizebay.cart.add" schema="Sizebay\SizebayTracker\Api\Data\CartAddInterface">
+        <publisher>default</publisher>
+        <consumer>sizebay.cart.add</consumer>
+    </topic>
 
 </config>

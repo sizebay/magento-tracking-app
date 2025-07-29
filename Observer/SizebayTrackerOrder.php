@@ -82,8 +82,6 @@ class SizebayTrackerOrder implements ObserverInterface
                 ];
             }
 
-            $this->logger->info('SizebayTrackerOrder fired');
-
             $orderTrack = $this->orderTrackFactory->create();
             $orderTrack->setOrderId($order->getId())
                 ->setItems($items)
@@ -93,7 +91,11 @@ class SizebayTrackerOrder implements ObserverInterface
                 ->setCurrency($order->getOrderCurrencyCode())
                 ->setCountry($country);
 
-            $this->orderPublisher->publish($orderTrack);
+            try {
+                $this->orderPublisher->publish($orderTrack);
+            } catch(\Exception $e) {
+                $this->logger->error('Error in OrderPublisher: ' . $e->getMessage());
+            }
 
 
         } catch (\Exception $e) {
