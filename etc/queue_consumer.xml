@@ -4,14 +4,14 @@
 
     <consumer name="sizebay.cart.add"
               queue="sizebay.cart.add.queue"
-              handler="Sizebay\SizebayTracker\Model\Consumer\CartAddConsumer::process"
+              handler="Sizebay\SizebayTracker\Model\Consumer\CartAddConsumer"
               connection="amqp"
               maxMessages="100"
               onlySpawnWhenMessageAvailable="1"/>
 
     <consumer name="sizebay.order"
               queue="sizebay.order.queue"
-              handler="Sizebay\SizebayTracker\Model\Consumer\OrderConsumer::process"
+              handler="Sizebay\SizebayTracker\Model\Consumer\OrderConsumer"
               connection="amqp"
               maxMessages="100"
               onlySpawnWhenMessageAvailable="1"/>
