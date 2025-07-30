@@ -1,5 +1,5 @@
 <?php
-namespace Sizebay\SizebayTracker\Model;
+namespace Sizebay\SizebayTracker\Model\Data;
 
 use Sizebay\SizebayTracker\Api\Data\CartAddInterface;
 
