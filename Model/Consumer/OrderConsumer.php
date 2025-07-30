@@ -2,7 +2,6 @@
 namespace Sizebay\SizebayTracker\Model\Consumer;
 
 use Psr\Log\LoggerInterface;
-use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
 
 class OrderConsumer
 {
@@ -13,20 +12,20 @@ class OrderConsumer
         $this->logger = $logger;
     }
 
-    public function process(OrderTrackInterface $data)
+    public function process(array $data)
     {
-        $this->logger->info("Sizebay Order Consumer Used");
+        $this->logger->info("Sizebay Order Consumer Triggered");
 
         try {
-            $url = "https://vfr-v3-production.sizebay.technology/plugin/new/ordered?sid=" . $data->getSessionId();
+            $url = "https://vfr-v3-production.sizebay.technology/plugin/new/ordered?sid=" . $data['session_id'];
             $this->logger->info("Request URL: " . $url);
 
             $payload = [
-                "orderId"  => $data->getOrderId(),
-                "items"    => $data->getItems(), // Assuming it's already an array of arrays
-                "tenantId" => $data->getTenantId(),
-                "currency" => $data->getCurrency(),
-                "country"  => $data->getCountry()
+                "orderId"  => $data['order_id'],
+                "items"    => $data['items'],
+                "tenantId" => $data['tenant_id'],
+                "currency" => $data['currency'],
+                "country"  => $data['country']
             ];
 
             $this->logger->info('Outgoing Payload: ' . json_encode($payload));
@@ -40,8 +39,8 @@ class OrderConsumer
                     'Content-Type: application/json',
                     'Accept: application/json',
                     'Device: DESKTOP',
-                    'tenant_id: ' . $data->getTenantId(),
-                    'referer: ' . $data->getReferer(),
+                    'tenant_id: ' . $data['tenant_id'],
+                    'referer: ' . $data['referer'],
                 ],
                 CURLOPT_CONNECTTIMEOUT => 5,
                 CURLOPT_TIMEOUT        => 10,
@@ -53,6 +52,7 @@ class OrderConsumer
             curl_close($ch);
 
             if ($response === false || $httpcode >= 400) {
+                $this->logger->error("cURL Error ({$httpcode}): " . $curlError . ' | Response: ' . $response);
                 throw new \Exception("HTTP {$httpcode} error: {$curlError}");
             }
 
@@ -62,4 +62,3 @@ class OrderConsumer
         }
     }
 }
-?>

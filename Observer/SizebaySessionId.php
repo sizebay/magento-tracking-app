@@ -38,13 +38,18 @@ class SizebaySessionId implements ObserverInterface
 
             curl_close($session_request);
 
-            $decoded = json_decode($response, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE || !is_array($decoded) || !isset($decoded['session_id'])) {
-                $this->logger->warning('Sizebay session ID API returned invalid response: ' . $response);
-                sleep(1);
-                continue;
+            if ($response && json_decode($response, true) === null) {
+                $sessionId = trim($response);
+            } else {
+                $decoded = json_decode($response, true);
+                if (!is_array($decoded) || !isset($decoded['session_id'])) {
+                    $this->logger->warning('Sizebay session ID API returned invalid response: ' . $response);
+                    sleep(1);
+                    continue;
+                }
+                $sessionId = $decoded['session_id'];
             }
+
 
             $sessionId = $decoded['session_id'];
 
