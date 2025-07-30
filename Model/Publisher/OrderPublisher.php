@@ -17,7 +17,11 @@ class OrderPublisher
 
     public function publish(OrderTrackInterface $orderTrack)
     {
+        try {
         $this->publisher->publish(self::TOPIC_NAME, $orderTrack);
+        } catch (Exception $exception) {
+            $this->logger->error('Error in OrderPublisher: Topic - ' . self::TOPIC_NAME . " EXCEPTION - " . $exception->getMessage() . " ORDER - "  . $orderTrack);
+        }
     }
 }
 ?>
