@@ -1,11 +1,18 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
     <type name="Sizebay\SizebayTracker\Model\Config\Source\ProductAttributes">
         <arguments>
             <argument name="attributeCollectionFactory" xsi:type="object">
-                Magento\Eav\Model\ResourceModel\Entity\Attribute\CollectionFactory</argument>
+                Magento\Eav\Model\ResourceModel\Entity\Attribute\CollectionFactory
+            </argument>
         </arguments>
     </type>
+
+    <preference for="Sizebay\SizebayTracker\Api\Data\OrderTrackInterface" type="Sizebay\SizebayTracker\Model\Data\OrderTrack" />
+    <preference for="Sizebay\SizebayTracker\Api\Data\CartAddInterface" type="Sizebay\SizebayTracker\Model\Data\CartAdd" />
+
     <type name="Sizebay\SizebayTracker\Cron\RunCartAddConsumer" />
     <type name="Sizebay\SizebayTracker\Cron\RunOrderConsumer" />
+
 </config>
