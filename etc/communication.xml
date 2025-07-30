@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
 
-    <topic name="sizebay.cart.add" request="Sizebay\SizebayTracker\Model\CartAdd"/>
-    <topic name="sizebay.order" request="Sizebay\SizebayTracker\Model\OrderTrack"/>
+    <topic name="sizebay.cart.add" request="Sizebay\SizebayTracker\Api\Data\CartAddInterface"/>
+    <topic name="sizebay.order" request="Sizebay\SizebayTracker\Api\Data\OrderTrackInterface"/>
 
 </config>
