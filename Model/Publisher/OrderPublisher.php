@@ -2,7 +2,7 @@
 namespace Sizebay\SizebayTracker\Model\Publisher;
 
 use Magento\Framework\MessageQueue\PublisherInterface;
-use SIzebay\SizebayTracker\Api\Data\OrderTrackInterface;
+use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
 
 class OrderPublisher
 {
