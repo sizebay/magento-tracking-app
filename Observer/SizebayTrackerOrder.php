@@ -93,8 +93,11 @@ class SizebayTrackerOrder implements ObserverInterface
                 ->setCurrency($order->getOrderCurrencyCode())
                 ->setCountry($country);
 
+            try {
             $this->orderPublisher->publish($orderTrack);
-
+            } catch (Exception $e) {
+                $this->logger->error($e->getMessage());
+            }
 
         } catch (\Exception $e) {
             $this->logger->error('Error in SizebayTrackerOrder observer: ' . $e->getMessage());
