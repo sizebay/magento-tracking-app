@@ -1,69 +1,65 @@
 <?php
-    namespace Sizebay\SizebayTracker\Model\Consumer;
+namespace Sizebay\SizebayTracker\Model\Consumer;
 
-    use Psr\Log\LoggerInterface;
-    use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
+use Psr\Log\LoggerInterface;
+use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
 
-    class OrderConsumer
+class OrderConsumer
+{
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
     {
-        private $logger;
+        $this->logger = $logger;
+    }
 
-        public function __construct(LoggerInterface $logger)
-        {
-            $this->logger = $logger;
-        }
-    
-        public function process(OrderTrackInterface $data)
-        {
-            $this->logger->info("Sizebay Order Consumer Used:");
-            try {
-                $url = "https://vfr-v3-production.sizebay.technology/plugin/new/ordered?sid=" . $data->getSessionId();
-    
-                $this->logger->info($url);
+    public function process(OrderTrackInterface $data)
+    {
+        $this->logger->info("Sizebay Order Consumer Used");
 
-                $ch = curl_init($url);
+        try {
+            $url = "https://vfr-v3-production.sizebay.technology/plugin/new/ordered?sid=" . $data->getSessionId();
+            $this->logger->info("Request URL: " . $url);
 
-                $items = array_map(function ($item) {
-                    return json_decode($item, true); 
-                }, $data->getItems());
-                
-    
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-                    "orderId" => $data->getOrderId(),
-                    "items" => $items,
-                    "tenantId" => $data->getTenantId(),
-                    "currency" => $data->getCurrency(),
-                    "country" => $data->getCountry()
-                ]));
-                curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                    'content-type: application/json',
-                    'accept: application/json',
-                    'device: DESKTOP',
+            $payload = [
+                "orderId"  => $data->getOrderId(),
+                "items"    => $data->getItems(), // Assuming it's already an array of arrays
+                "tenantId" => $data->getTenantId(),
+                "currency" => $data->getCurrency(),
+                "country"  => $data->getCountry()
+            ];
+
+            $this->logger->info('Outgoing Payload: ' . json_encode($payload));
+
+            $ch = curl_init($url);
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST           => true,
+                CURLOPT_POSTFIELDS     => json_encode($payload),
+                CURLOPT_HTTPHEADER     => [
+                    'Content-Type: application/json',
+                    'Accept: application/json',
+                    'Device: DESKTOP',
                     'tenant_id: ' . $data->getTenantId(),
                     'referer: ' . $data->getReferer(),
-                ]);
+                ],
+                CURLOPT_CONNECTTIMEOUT => 5,
+                CURLOPT_TIMEOUT        => 10,
+            ]);
 
-                $this->logger->info('Outgoing Payload: ' . json_encode([
-                    "orderId" => $data->getOrderId(),
-                    "items" => $data->getItems(),
-                    "tenantId" => $data->getTenantId(),
-                    "currency" => $data->getCurrency(),
-                    "country" => $data->getCountry()
-                ]));
-                
-    
-                $response = curl_exec($ch);
-                $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                if ($response === false) {
-                    throw new \Exception("cURL error: " . curl_error($ch));
-                }
-                curl_close($ch);
-                $this->logger->info($response);
-            } catch (\Exception $e) {
-                $this->logger->error('Error in OrderPlacedConsumer: ' . $e->getMessage());
+            $response = curl_exec($ch);
+            $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curlError = curl_error($ch);
+            curl_close($ch);
+
+            if ($response === false || $httpcode >= 400) {
+                throw new \Exception("HTTP {$httpcode} error: {$curlError}");
             }
+
+            $this->logger->info("Response: " . $response);
+        } catch (\Exception $e) {
+            $this->logger->error('Error in OrderConsumer: ' . $e->getMessage());
         }
     }
+}
 ?>
