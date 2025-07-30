@@ -38,7 +38,17 @@ class SizebaySessionId implements ObserverInterface
 
             curl_close($session_request);
 
-            $cookieSet = setcookie('SIZEBAY_SESSION_ID_V4', json_decode($response), [
+            $decoded = json_decode($response, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE || !is_array($decoded) || !isset($decoded['session_id'])) {
+                $this->logger->warning('Sizebay session ID API returned invalid response: ' . $response);
+                sleep(1);
+                continue;
+            }
+
+            $sessionId = $decoded['session_id'];
+
+            $cookieSet = setcookie('SIZEBAY_SESSION_ID_V4', $sessionId, [
                 'expires' => time() + 3600,
                 'path' => '/',
                 'secure' => isset($_SERVER['HTTPS']),
@@ -50,11 +60,10 @@ class SizebaySessionId implements ObserverInterface
                 throw new \Exception('Failed to set the session ID cookie.');
             }
 
-
-            sleep(1);
+            return; // Success, exit method
         }
 
-        throw new \Exception('Invalid response format. Expected JSON object.');
+        throw new \Exception('Invalid response format. Expected JSON object with session_id.');
     }
 
 
