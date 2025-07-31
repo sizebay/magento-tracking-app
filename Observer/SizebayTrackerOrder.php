@@ -7,6 +7,7 @@ use Magento\Framework\Event\Observer;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Sizebay\SizebayTracker\Model\Data\OrderTrackFactory;
+use Sizebay\SizebayTracker\Model\Data\OrderItemFactory;
 use Sizebay\SizebayTracker\Model\Publisher\OrderPublisher;
 use Magento\Store\Model\StoreManagerInterface;
 
@@ -17,6 +18,9 @@ class SizebayTrackerOrder implements ObserverInterface
     protected $orderPublisher;
 
     protected $orderTrackFactory;
+
+    protected $orderItemFactory;
+
     protected $storeManager;
 
     public function __construct(
@@ -24,11 +28,13 @@ class SizebayTrackerOrder implements ObserverInterface
         ScopeConfigInterface $scopeConfig,
         OrderPublisher $orderPublisher,
         OrderTrackFactory $orderTrackFactory,
+        OrderItemFactory $orderItemFactory,
         StoreManagerInterface $storeManager
     ) {
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
         $this->orderTrackFactory = $orderTrackFactory;
+        $this->orderItemFactory = $orderItemFactory;
         $this->orderPublisher = $orderPublisher;
         $this->storeManager = $storeManager;
     }
@@ -72,13 +78,13 @@ class SizebayTrackerOrder implements ObserverInterface
                     }
                 }
 
-                $orderItem = $this->orderItemFactory->create()
-                    ->setSku($item->getSku())
-                    ->setQuantity((int)$item->getQtyOrdered())
-                    ->setPrice($item->getPrice())
-                    ->setPermalink($this->storeManager->getStore()->getBaseUrl() . $product->getId())
-                    ->setSize($size)
-                    ->setFeedProductId($product->getId());
+                $orderItem = $this->orderItemFactory->create();
+                $orderItem->setSku($item->getSku());
+                $orderItem->setQuantity((int)$item->getQtyOrdered());
+                $orderItem->setPrice((float)$item->getPrice());$permalink = $this->storeManager->getStore()->getBaseUrl() . $product->getId();
+                $orderItem->setPermalink($permalink);
+                $orderItem->setSize($size);
+                $orderItem->setFeedProductId($product->getId());
 
                 $items[] = $orderItem;
             }
