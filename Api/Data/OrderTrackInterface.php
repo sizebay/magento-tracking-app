@@ -2,6 +2,7 @@
 namespace Sizebay\SizebayTracker\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
+use Sizebay\SizebayTracker\Api\Data\OrderItemInterface;
 
 interface OrderTrackInterface extends ExtensibleDataInterface
 {
@@ -23,14 +24,14 @@ interface OrderTrackInterface extends ExtensibleDataInterface
     /**
      * Get items
      *
-     * @return object[]|null
+     * @return OrderItemInterface[]|null
      */
     public function getItems();
 
     /**
      * Set items
      *
-     * @param object $items
+     * @param OrderItemInterface[] $items
      * @return $this
      */
     public function setItems(array $items);

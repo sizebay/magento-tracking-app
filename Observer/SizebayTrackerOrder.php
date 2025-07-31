@@ -72,14 +72,15 @@ class SizebayTrackerOrder implements ObserverInterface
                     }
                 }
 
-                $items[] = [
-                    'permalink' => $this->storeManager->getStore()->getBaseUrl() . $product->getId(),
-                    'price' => $item->getPrice(),
-                    'quantity' => (int) $item->getQtyOrdered(),
-                    'size' => $size,
-                    'feedProductId' => $product->getId(),
-                    'sku' => $item->getSku()
-                ];
+                $orderItem = $this->orderItemFactory->create()
+                    ->setSku($item->getSku())
+                    ->setQuantity((int)$item->getQtyOrdered())
+                    ->setPrice($item->getPrice())
+                    ->setPermalink($this->storeManager->getStore()->getBaseUrl() . $product->getId())
+                    ->setSize($size)
+                    ->setFeedProductId($product->getId());
+
+                $items[] = $orderItem;
             }
 
             $orderTrack = $this->orderTrackFactory->create();
