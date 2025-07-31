@@ -90,9 +90,10 @@ class SizebayTrackerOrder implements ObserverInterface
                 ->setSessionId($sessionId)
                 ->setCurrency($order->getOrderCurrencyCode())
                 ->setCountry($country);
-
+   
             try {
             $this->orderPublisher->publish($orderTrack);
+            $this->logger->info("Sizebay Order is published: " . json_encode($orderTrack));
             } catch (Exception $e) {
                 $this->logger->error($e->getMessage());
             }
