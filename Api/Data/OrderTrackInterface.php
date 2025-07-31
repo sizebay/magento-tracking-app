@@ -23,14 +23,14 @@ interface OrderTrackInterface extends ExtensibleDataInterface
     /**
      * Get items
      *
-     * @return array|null
+     * @return object[]|null
      */
     public function getItems();
 
     /**
      * Set items
      *
-     * @param array $items
+     * @param object $items
      * @return $this
      */
     public function setItems(array $items);

@@ -82,8 +82,6 @@ class SizebayTrackerOrder implements ObserverInterface
                 ];
             }
 
-            $this->logger->info('SizebayTrackerOrder fired');
-
             $orderTrack = $this->orderTrackFactory->create();
             $orderTrack->setOrderId($order->getId())
                 ->setItems($items)

@@ -11,7 +11,7 @@ class OrderTrack implements OrderTrackInterface
     private $orderId;
 
     /**
-     * @var string[]
+     * @var object[]
      */
     private $items = [];
 
