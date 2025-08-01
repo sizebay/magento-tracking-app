@@ -1,13 +1,13 @@
 <?php
 namespace Sizebay\SizebayTracker\Model\Data;
 
-use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
+use Sizebay\SizebayTracker\Api\Data\OrderItemInterface;
 
 /**
  * Class OrderItem
  * Implementa os dados de item de pedido para rastreamento Sizebay.
  */
-class OrderItem implements OrderTrackInterface
+class OrderItem implements OrderItemInterface
 {
     /**
      * @var string|null
