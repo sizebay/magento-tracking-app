@@ -1,68 +1,149 @@
 <?php
 namespace Sizebay\SizebayTracker\Model\Data;
 
-use Magento\Framework\Model\AbstractExtensibleModel;
-use Sizebay\SizebayTracker\Api\Data\OrderItemInterface;
+use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
 
-class OrderItem extends AbstractExtensibleModel implements OrderItemInterface
+/**
+ * Class OrderItem
+ * Implementa os dados de item de pedido para rastreamento Sizebay.
+ */
+class OrderItem implements OrderTrackInterface
 {
+    /**
+     * @var string|null
+     */
+    private $sku;
+
+    /**
+     * @var int|null
+     */
+    private $quantity;
+
+    /**
+     * @var float|null
+     */
+    private $price;
+
+    /**
+     * @var string|null
+     */
+    private $permalink;
+
+    /**
+     * @var string|null
+     */
+    private $size;
+
+    /**
+     * @var int|null
+     */
+    private $feedProductId;
+
+    /**
+     * @return string|null
+     */
     public function getSku(): ?string
     {
-        return $this->_getData('sku');
+        return $this->sku;
     }
 
-    public function setSku(string $sku): OrderItemInterface
+    /**
+     * @param string $sku
+     * @return $this
+     */
+    public function setSku(string $sku): self
     {
-        return $this->setData('sku', $sku);
+        $this->sku = $sku;
+        return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getQuantity(): ?int
     {
-        return $this->_getData('quantity');
+        return $this->quantity;
     }
 
-    public function setQuantity(int $qty): OrderItemInterface
+    /**
+     * @param int $qty
+     * @return $this
+     */
+    public function setQuantity(int $qty): self
     {
-        return $this->setData('quantity', $qty);
+        $this->quantity = $qty;
+        return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getPrice(): ?float
     {
-        return $this->_getData('price');
+        return $this->price;
     }
 
-    public function setPrice(float $price): OrderItemInterface
+    /**
+     * @param float $price
+     * @return $this
+     */
+    public function setPrice(float $price): self
     {
-        return $this->setData('price', $price);
+        $this->price = $price;
+        return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getPermalink(): ?string
     {
-        return $this->_getData('permalink');
+        return $this->permalink;
     }
 
-    public function setPermalink(string $permalink): OrderItemInterface
+    /**
+     * @param string $permalink
+     * @return $this
+     */
+    public function setPermalink(string $permalink): self
     {
-        return $this->setData('permalink', $permalink);
+        $this->permalink = $permalink;
+        return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getSize(): ?string
     {
-        return $this->_getData('size');
+        return $this->size;
     }
 
-    public function setSize(string $size): OrderItemInterface
+    /**
+     * @param string $size
+     * @return $this
+     */
+    public function setSize(string $size): self
     {
-        return $this->setData('size', $size);
+        $this->size = $size;
+        return $this;
     }
 
+    /**
+     * @return int|null
+     */
     public function getFeedProductId(): ?int
     {
-        return $this->_getData('feed_product_id');
+        return $this->feedProductId;
     }
 
-    public function setFeedProductId(int $id): OrderItemInterface
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function setFeedProductId(int $id): self
     {
-        return $this->setData('feed_product_id', $id);
+        $this->feedProductId = $id;
+        return $this;
     }
 }
