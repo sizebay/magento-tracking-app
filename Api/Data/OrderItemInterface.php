@@ -1,7 +1,7 @@
 <?php
 namespace Sizebay\SizebayTracker\Api\Data;
 
-use Magento\Framework\Api\ExtensibleDataInterfaace;
+use Magento\Framework\Api\ExtensibleDataInterface;
 
 interface OrderItemInterface extends ExtensibleDataInterface
 {
