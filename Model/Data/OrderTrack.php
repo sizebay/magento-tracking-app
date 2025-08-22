@@ -4,7 +4,7 @@ namespace Sizebay\SizebayTracker\Model\Data;
 use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
 use Magento\Framework\Model\AbstractExtensibleModel;
 
-class OrderTrack extends AbstractExtensibleModel implements OrderTrackInterface
+class OrderTrack implements OrderTrackInterface
 {
     /**
      * @var string

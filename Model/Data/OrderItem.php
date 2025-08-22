@@ -4,7 +4,7 @@ namespace Sizebay\SizebayTracker\Model\Data;
 use Sizebay\SizebayTracker\Api\Data\OrderItemInterface;
 use Magento\Framework\Model\AbstractExtensibleModel;
 
-class OrderItem extends AbstractExtensibleModel implements OrderItemInterface
+class OrderItem implements OrderItemInterface
 {
     /**
      * @var string|null
