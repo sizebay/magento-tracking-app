@@ -6,7 +6,6 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Sizebay\SizebayTracker\Model\Data\OrderTrack;
 use sizebay\SizebayTracker\Model\Publisher\OrderPublisher;
 use Magento\Store\Model\StoreManagerInterface;
 
@@ -35,7 +34,7 @@ class SizebayTrackerOrder implements ObserverInterface
         $this->orderPublisher = $orderPublisher;
         $this->storeManager = $storeManager;
         $this->orderItemFactory = $orderItemFactory;
-        $this->$orderTrackFactory = $orderTrackFactory;
+        $this->orderTrackFactory = $orderTrackFactory;
     }
 
     public function isModuleActive(): bool
