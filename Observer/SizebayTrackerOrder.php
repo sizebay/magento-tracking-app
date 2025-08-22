@@ -69,25 +69,33 @@ class SizebayTrackerOrder implements ObserverInterface
                     }
                 }
 
-                $orderItem = new OrderItem();
-                $orderItem->setSku($item->getSku());
-                $orderItem->setQuantity((int)$item->getQtyOrdered());
-                $orderItem->setPrice((float)$item->getPrice());$permalink = $this->storeManager->getStore()->getBaseUrl() . $product->getId();
-                $orderItem->setPermalink($permalink);
-                $orderItem->setSize($size);
-                $orderItem->setFeedProductId($product->getId());
+                try {
+                    $orderItem = new OrderItem();
+                    $orderItem->setSku($item->getSku());
+                    $orderItem->setQuantity((int)$item->getQtyOrdered());
+                    $orderItem->setPrice((float)$item->getPrice());$permalink = $this->storeManager->getStore()->getBaseUrl() . $product->getId();
+                    $orderItem->setPermalink($permalink);
+                    $orderItem->setSize($size);
+                    $orderItem->setFeedProductId($product->getId());
 
-                $items[] = $orderItem;
+                    $items[] = $orderItem;
+                } catch (\Exception $e) {
+                    $this->logger->critical($e);
+                }
             }
 
-            $orderTrack = new OrderTrack();
-            $orderTrack->setOrderId($order->getId())
-                ->setItems($items)
-                ->setTenantId($tenantId)
-                ->setReferer($referer)
-                ->setSessionId($sessionId)
-                ->setCurrency($order->getOrderCurrencyCode())
-                ->setCountry($country);
+            try {
+                $orderTrack = new OrderTrack();
+                $orderTrack->setOrderId($order->getId())
+                    ->setItems($items)
+                    ->setTenantId($tenantId)
+                    ->setReferer($referer)
+                    ->setSessionId($sessionId)
+                    ->setCurrency($order->getOrderCurrencyCode())
+                    ->setCountry($country);
+            } catch (\Exception $e) {
+                $this->logger->critical($e);
+            }
    
             try {
             $this->orderPublisher->publish($orderTrack);
