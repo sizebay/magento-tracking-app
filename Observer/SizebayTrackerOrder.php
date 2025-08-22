@@ -27,8 +27,8 @@ class SizebayTrackerOrder implements ObserverInterface
         LoggerInterface $logger,
         ScopeConfigInterface $scopeConfig,
         OrderPublisher $orderPublisher,
-        OrderTrackFactory $orderTrackFactory,
-        OrderItemFactory $orderItemFactory,
+        OrderTrack $orderTrackFactory,
+        OrderItem $orderItemFactory,
         StoreManagerInterface $storeManager
     ) {
         $this->logger = $logger;
