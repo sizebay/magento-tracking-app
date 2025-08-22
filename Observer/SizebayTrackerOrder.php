@@ -16,26 +16,17 @@ class SizebayTrackerOrder implements ObserverInterface
     protected $logger;
     protected $scopeConfig;
     protected $orderPublisher;
-
-    protected $orderTrackFactory;
-
-    protected $orderItemFactory;
-
     protected $storeManager;
 
     public function __construct(
         LoggerInterface $logger,
         ScopeConfigInterface $scopeConfig,
         OrderPublisher $orderPublisher,
-        OrderTrackFactory $orderTrackFactory,
-        OrderItemFactory $orderItemFactory,
         StoreManagerInterface $storeManager
     ) {
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
         $this->orderPublisher = $orderPublisher;
-        $this->orderTrackFactory = $orderTrackFactory;
-        $this->orderItemFactory = $orderItemFactory;
         $this->storeManager = $storeManager;
     }
 
@@ -78,7 +69,7 @@ class SizebayTrackerOrder implements ObserverInterface
                     }
                 }
 
-                $orderItem = $this->orderItemFactory->create();
+                $orderItem = new OrderItem();
                 $orderItem->setSku($item->getSku());
                 $orderItem->setQuantity((int)$item->getQtyOrdered());
                 $orderItem->setPrice((float)$item->getPrice());$permalink = $this->storeManager->getStore()->getBaseUrl() . $product->getId();
@@ -89,7 +80,7 @@ class SizebayTrackerOrder implements ObserverInterface
                 $items[] = $orderItem;
             }
 
-            $orderTrack = $this->orderTrackFactory->create();
+            $orderTrack = new OrderTrack();
             $orderTrack->setOrderId($order->getId())
                 ->setItems($items)
                 ->setTenantId($tenantId)

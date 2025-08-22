@@ -3,7 +3,7 @@ namespace Sizebay\SizebayTracker\Model\Data;
 
 use Sizebay\SizebayTracker\Api\Data\OrderItemInterface;
 
-class OrderItem implements OrderItemInterface
+class OrderItem extends AbstractExtensibleModel implements OrderItemInterface
 {
     /**
      * @var string|null

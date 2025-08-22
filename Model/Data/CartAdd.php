@@ -62,4 +62,3 @@ class CartAdd implements CartAddInterface
         return $this;
     }
 }
-?>
