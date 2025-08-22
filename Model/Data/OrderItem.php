@@ -2,7 +2,6 @@
 namespace Sizebay\SizebayTracker\Model\Data;
 
 use Sizebay\SizebayTracker\Api\Data\OrderItemInterface;
-use Magento\Framework\Model\AbstractExtensibleModel;
 
 class OrderItem implements OrderItemInterface
 {
