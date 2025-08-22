@@ -3,10 +3,6 @@ namespace Sizebay\SizebayTracker\Model\Data;
 
 use Sizebay\SizebayTracker\Api\Data\OrderItemInterface;
 
-/**
- * Class OrderItem
- * Implementa os dados de item de pedido para rastreamento Sizebay.
- */
 class OrderItem implements OrderItemInterface
 {
     /**
@@ -49,9 +45,9 @@ class OrderItem implements OrderItemInterface
 
     /**
      * @param string $sku
-     * @return $this
+     * @return OrderItemInterface
      */
-    public function setSku(string $sku): self
+    public function setSku(string $sku): OrderItemInterface
     {
         $this->sku = $sku;
         return $this;
@@ -67,9 +63,9 @@ class OrderItem implements OrderItemInterface
 
     /**
      * @param int $qty
-     * @return $this
+     * @return OrderItemInterface
      */
-    public function setQuantity(int $qty): self
+    public function setQuantity(int $qty): OrderItemInterface
     {
         $this->quantity = $qty;
         return $this;
@@ -85,9 +81,9 @@ class OrderItem implements OrderItemInterface
 
     /**
      * @param float $price
-     * @return $this
+     * @return OrderItemInterface
      */
-    public function setPrice(float $price): self
+    public function setPrice(float $price): OrderItemInterface
     {
         $this->price = $price;
         return $this;
@@ -105,7 +101,7 @@ class OrderItem implements OrderItemInterface
      * @param string $permalink
      * @return $this
      */
-    public function setPermalink(string $permalink): self
+    public function setPermalink(string $permalink): OrderItemInterface
     {
         $this->permalink = $permalink;
         return $this;
@@ -114,16 +110,16 @@ class OrderItem implements OrderItemInterface
     /**
      * @return string|null
      */
-    public function getSize(): ?string
+    public function getSize(): string
     {
         return $this->size;
     }
 
     /**
      * @param string $size
-     * @return $this
+     * @return OrderItemInterface
      */
-    public function setSize(string $size): self
+    public function setSize(string $size): OrderItemInterface
     {
         $this->size = $size;
         return $this;
@@ -139,9 +135,9 @@ class OrderItem implements OrderItemInterface
 
     /**
      * @param int $id
-     * @return $this
+     * @return OrderItemInterface
      */
-    public function setFeedProductId(int $id): self
+    public function setFeedProductId(int $id): OrderItemInterface
     {
         $this->feedProductId = $id;
         return $this;
