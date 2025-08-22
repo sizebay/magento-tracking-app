@@ -7,7 +7,8 @@ use Magento\Framework\Event\Observer;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Sizebay\SizebayTracker\Model\Data\OrderTrack;
-use Sizebay\SizebayTracker\Model\Publisher\OrderPublisher;
+use Sizebay\SizebayTracker\Model\Data\OrderItem;
+use sizebay\SizebayTracker\Model\Publisher\OrderPublisher;
 use Magento\Store\Model\StoreManagerInterface;
 
 class SizebayTrackerOrder implements ObserverInterface
@@ -68,7 +69,7 @@ class SizebayTrackerOrder implements ObserverInterface
             }
 
             try {
-                $orderItem = new Sizebay\SizebayTracker\Model\Data\OrderItem();
+                $orderItem = new OrderItem();
                 $orderItem->setSku($item->getSku());
                 $orderItem->setQuantity((int)$item->getQtyOrdered());
                 $orderItem->setPrice((float)$item->getPrice());$permalink = $this->storeManager->getStore()->getBaseUrl() . $product->getId();
