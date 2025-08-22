@@ -6,8 +6,8 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Sizebay\SizebayTracker\Model\Data\OrderTrack;
-use Sizebay\SizebayTracker\Model\Data\OrderItem;
+use Sizebay\SizebayTracker\Model\Data\OrderTrackFactory;
+use Sizebay\SizebayTracker\Model\Data\OrderItemFactory;
 use Sizebay\SizebayTracker\Model\Publisher\OrderPublisher;
 use Magento\Store\Model\StoreManagerInterface;
 
@@ -27,15 +27,15 @@ class SizebayTrackerOrder implements ObserverInterface
         LoggerInterface $logger,
         ScopeConfigInterface $scopeConfig,
         OrderPublisher $orderPublisher,
-        OrderTrack $orderTrackFactory,
-        OrderItem $orderItemFactory,
+        OrderTrackFactory $orderTrackFactory,
+        OrderItemFactory $orderItemFactory,
         StoreManagerInterface $storeManager
     ) {
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
+        $this->orderPublisher = $orderPublisher;
         $this->orderTrackFactory = $orderTrackFactory;
         $this->orderItemFactory = $orderItemFactory;
-        $this->orderPublisher = $orderPublisher;
         $this->storeManager = $storeManager;
     }
 
