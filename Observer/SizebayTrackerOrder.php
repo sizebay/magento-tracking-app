@@ -18,16 +18,24 @@ class SizebayTrackerOrder implements ObserverInterface
     protected $orderPublisher;
     protected $storeManager;
 
+    protected $orderItemFactory;
+
+    protected $orderTrackFactory;
+
     public function __construct(
         LoggerInterface $logger,
         ScopeConfigInterface $scopeConfig,
         OrderPublisher $orderPublisher,
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        \Sizebay\SizebayTracker\Model\Data\OrderItemFactory $orderItemFactory,
+        \Sizebay\SizebayTracker\Model\Data\OrderTrackFactory $orderTrackFactory
     ) {
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
         $this->orderPublisher = $orderPublisher;
         $this->storeManager = $storeManager;
+        $this->orderItemFactory = $orderItemFactory;
+        $this->orderTrackFactory = $orderTrackFactory;
     }
 
     public function isModuleActive(): bool
@@ -69,7 +77,7 @@ class SizebayTrackerOrder implements ObserverInterface
                     }
                 }
 
-                $orderItem = new OrderItem();
+                $orderItem = $this->orderItemFactory->create();
                 $orderItem->setSku($item->getSku());
                 $orderItem->setQuantity((int)$item->getQtyOrdered());
                 $orderItem->setPrice((float)$item->getPrice());$permalink = $this->storeManager->getStore()->getBaseUrl() . $product->getId();
@@ -80,7 +88,7 @@ class SizebayTrackerOrder implements ObserverInterface
                 $items[] = $orderItem;
             }
 
-            $orderTrack = new OrderTrack();
+            $orderTrack = $this->orderTrackFactory->create();
             $orderTrack->setOrderId($order->getId())
                 ->setItems($items)
                 ->setTenantId($tenantId)
