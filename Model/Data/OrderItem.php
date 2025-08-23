@@ -37,108 +37,102 @@ class OrderItem extends AbstractExtensibleModel implements OrderItemInterface
     private $feedProductId;
 
     /**
-     * @return string|null
+     * @inheritdoc
      */
-    public function getSku(): ?string
+    public function getSku()
     {
         return $this->sku;
     }
 
     /**
-     * @param string $sku
-     * @return OrderItemInterface
+     * @inheritdoc
      */
-    public function setSku(string $sku): OrderItemInterface
+    public function setSku($sku)
     {
         $this->sku = $sku;
         return $this;
     }
 
     /**
-     * @return int|null
+     * @inheritdoc
      */
-    public function getQuantity(): ?int
+    public function getQuantity()
     {
         return $this->quantity;
     }
 
     /**
-     * @param int $qty
-     * @return OrderItemInterface
+     * @inheritdoc
      */
-    public function setQuantity(int $qty): OrderItemInterface
+    public function setQuantity($qty)
     {
         $this->quantity = $qty;
         return $this;
     }
 
     /**
-     * @return float|null
+     * @inheritdoc
      */
-    public function getPrice(): ?float
+    public function getPrice()
     {
         return $this->price;
     }
 
     /**
-     * @param float $price
-     * @return OrderItemInterface
+     * @inheritdoc
      */
-    public function setPrice(float $price): OrderItemInterface
+    public function setPrice($price)
     {
         $this->price = $price;
         return $this;
     }
 
     /**
-     * @return string|null
+     * @inheritdoc
      */
-    public function getPermalink(): ?string
+    public function getPermalink()
     {
         return $this->permalink;
     }
 
     /**
-     * @param string $permalink
-     * @return $this
+     * @inheritdoc
      */
-    public function setPermalink(string $permalink): OrderItemInterface
+    public function setPermalink($permalink)
     {
         $this->permalink = $permalink;
         return $this;
     }
 
     /**
-     * @return string|null
+     * @inheritdoc
      */
-    public function getSize(): string
+    public function getSize()
     {
         return $this->size;
     }
 
     /**
-     * @param string $size
-     * @return OrderItemInterface
+     * @inheritdoc
      */
-    public function setSize(string $size): OrderItemInterface
+    public function setSize($size)
     {
         $this->size = $size;
         return $this;
     }
 
     /**
-     * @return int|null
+     * @inheritdoc
      */
-    public function getFeedProductId(): ?int
+    public function getFeedProductId()
     {
         return $this->feedProductId;
     }
 
     /**
-     * @param int $id
-     * @return OrderItemInterface
+     * @inheritdoc
      */
-    public function setFeedProductId(int $id): OrderItemInterface
+    public function setFeedProductId($id)
     {
         $this->feedProductId = $id;
         return $this;
