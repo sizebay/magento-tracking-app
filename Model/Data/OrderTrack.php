@@ -1,7 +1,6 @@
 <?php
 namespace Sizebay\SizebayTracker\Model\Data;
 
-use Sizebay\SizebayTracker\Api\Data\OrderItemInterface;
 use Sizebay\SizebayTracker\Api\Data\OrderTrackInterface;
 use Magento\Framework\Model\AbstractExtensibleModel;
 
@@ -67,7 +66,7 @@ class OrderTrack extends AbstractExtensibleModel implements OrderTrackInterface
     /**
      * Get order items
      *
-     * @return OrderItemInterface[]
+     * @return \Sizebay\SizebayTracker\Api\Data\OrderItemInterface[]
      */
     public function getItems()
     {
@@ -77,7 +76,7 @@ class OrderTrack extends AbstractExtensibleModel implements OrderTrackInterface
     /**
      * Set order items
      *
-     * @param OrderItemInterface[] $items
+     * @param \Sizebay\SizebayTracker\Api\Data\OrderItemInterface[] $items
      * @return $this
      */
     public function setItems(array $items)
