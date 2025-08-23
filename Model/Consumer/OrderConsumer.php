@@ -55,9 +55,10 @@ class OrderConsumer
             $headers = [
                 'content-type: application/json',
                 'accept: application/json',
-                'device: DESKTOP',
-                'tenant_id: ' . $data->getTenantId(),
-                'referer: ' . (string)$data->getReferer(),
+                'x-szb-device: DESKTOP',
+                'x-szb-tenant-id: ' . $data->getTenantId(),
+                'x-szb-referer: ' . $data->getReferer(),
+                'x-szb-country: ' . $data->getCountry(),
             ];
 
             $this->logger->info('Outgoing Headers: ' . json_encode($headers));
