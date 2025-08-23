@@ -23,7 +23,6 @@ class OrderConsumer
 
             $this->logger->info('Request URL: ' . $url);
 
-            // Convert items from OrderItemInterface objects → array
             $items = [];
             foreach ((array)$data->getItems() as $item) {
                 if ($item instanceof OrderItemInterface) {
@@ -45,7 +44,6 @@ class OrderConsumer
                 }
             }
 
-            // Build payload
             $payload = [
                 'orderId'  => $data->getOrderId(),
                 'items'    => $items,
@@ -54,20 +52,22 @@ class OrderConsumer
                 'country'  => $data->getCountry(),
             ];
 
-            $this->logger->info('Outgoing Payload: ' . json_encode($payload));
-
-            // Send via cURL
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            $headers = [
                 'content-type: application/json',
                 'accept: application/json',
                 'device: DESKTOP',
                 'tenant_id: ' . $data->getTenantId(),
                 'referer: ' . (string)$data->getReferer(),
-            ]);
+            ];
+
+            $this->logger->info('Outgoing Headers: ' . json_encode($headers));
+            $this->logger->info('Outgoing Payload: ' . json_encode($payload));
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
             $response = curl_exec($ch);
             if ($response === false) {
