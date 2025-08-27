@@ -13,7 +13,4 @@
     <preference for="Sizebay\SizebayTracker\Api\Data\CartAddInterface" type="Sizebay\SizebayTracker\Model\Data\CartAdd" />
     <preference for="Sizebay\SizebayTracker\Api\Data\OrderItemInterface" type="Sizebay\SizebayTracker\Model\Data\OrderItem" />
 
-    <type name="Sizebay\SizebayTracker\Cron\RunCartAddConsumer" />
-    <type name="Sizebay\SizebayTracker\Cron\RunOrderConsumer" />
-
 </config>
