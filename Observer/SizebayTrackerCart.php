@@ -17,16 +17,21 @@ class SizebayTrackerCart implements ObserverInterface
     protected $checkoutSession;
     protected $cartAddPublisher;
 
+    protected $cartAddFactory;
+
+
     public function __construct(
         LoggerInterface $logger,
         ScopeConfigInterface $scopeConfig,
         CheckoutSession $checkoutSession,
-        CartAddPublisher $cartAddPublisher
+        CartAddPublisher $cartAddPublisher,
+        \Sizebay\SizebayTracker\Model\Data\CartAddFactory $cartAddFactory
     ) {
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
         $this->checkoutSession = $checkoutSession;
         $this->cartAddPublisher = $cartAddPublisher;
+        $this->cartAddFactory = $cartAddFactory;
     }
 
     public function isModuleActive()
@@ -68,7 +73,11 @@ class SizebayTrackerCart implements ObserverInterface
 
                 $this->logger->info('SizebayTrackerCart fired');
 
-                $cartAdd = new CartAdd($addedItems, $sessionId, $tenantId, $referer);
+                $cartAdd = $this->cartAddFactory->create();
+                $cartAdd->setSessionId($sessionId);
+                $cartAdd->setReferer($referer);
+                $cartAdd->setTantnId($tenantId);
+                $cartAdd->setItems($addedItems);
                 $this->cartAddPublisher->publish($cartAdd);
             }
         } catch (\Exception $e) {
