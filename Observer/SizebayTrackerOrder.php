@@ -105,7 +105,7 @@ class SizebayTrackerOrder implements ObserverInterface
 
         try {
         $this->orderPublisher->publish($orderTrack);
-        $this->logger->info("Sizebay Order is published: " . json_encode($orderTrack));
+        $this->logger->info("Sizebay Order is published 2: " . json_encode($orderTrack));
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
         }
