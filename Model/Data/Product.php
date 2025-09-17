@@ -4,6 +4,8 @@ namespace Sizebay\SizebayTracker\Model\Data;
 
 
 use Sizebay\SizebayTracker\Api\Data\ProductInterface;
+use Magento\Framework\Model\AbstractExtensibleModel;
+
 
 class Product extends AbstractExtensibleModel implements ProductInterface
 {
