@@ -7,9 +7,9 @@ use Sizebay\SizebayTracker\Api\Data\CartAddInterface;
 class CartAdd extends AbstractExtensibleModel implements CartAddInterface
 {
     /**
-     * @var array
+     * @var object[]
      */
-    private $items = [];
+    private $products = [];
 
     /**
      * @var string
@@ -27,33 +27,19 @@ class CartAdd extends AbstractExtensibleModel implements CartAddInterface
     private $referer = '';
 
     /**
-     * @param array $items
-     * @param string $sessionId
-     * @param string $tenantId
-     * @param string $referer
+     * @inheritdoc
      */
-    public function __construct($items = [], $sessionId = '', $tenantId = '', $referer = '')
+    public function getProducts()
     {
-        $this->items = $items;
-        $this->sessionId = $sessionId;
-        $this->tenantId = $tenantId;
-        $this->referer = $referer;
+        return $this->products;
     }
 
     /**
      * @inheritdoc
      */
-    public function getItems()
+    public function setProducts(array $products)
     {
-        return $this->items;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setItems(array $items)
-    {
-        $this->items = $items;
+        $this->products = $products;
         return $this;
     }
 

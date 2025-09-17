@@ -3,7 +3,7 @@ namespace Sizebay\SizebayTracker\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
-interface OrderTrackInterface extends ExtensibleDataInterface
+interface   OrderTrackInterface extends ExtensibleDataInterface
 {
     /**
      * Get order ID

@@ -17,7 +17,7 @@ class SizebayTrackerCart implements ObserverInterface
     protected $cartAddPublisher;
 
     protected $cartAddFactory;
-    protected $storeManager;
+    protected $productFactory;
 
 
     public function __construct(
@@ -25,13 +25,12 @@ class SizebayTrackerCart implements ObserverInterface
         ScopeConfigInterface $scopeConfig,
         CheckoutSession $checkoutSession,
         CartAddPublisher $cartAddPublisher,
-        StoreManagerInterface $storeManager,
-        \Sizebay\SizebayTracker\Model\Data\CartAddFactory $cartAddFactory
+        \Sizebay\SizebayTracker\Model\Data\CartAddFactory $cartAddFactory,
+        \Sizebay\SizebayTracker\Model\Data\ProductFactory $productFactory
     ) {
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
         $this->checkoutSession = $checkoutSession;
-        $this->storeManager = $storeManager;
         $this->cartAddPublisher = $cartAddPublisher;
         $this->cartAddFactory = $cartAddFactory;
     }
@@ -55,10 +54,10 @@ class SizebayTrackerCart implements ObserverInterface
             foreach ($items as $item) {
                 $productId = $item->getProduct()->getId();
                 if (!in_array($productId, $previousItems)) {
-                    $addedItems[] = [
-                        "product_id" => $productId,
-                        "permalink" => $item->getProduct()->getProductUrl(),
-                    ];
+                    $product = $this->productFactory->create();
+                    $product->setPermalink($item->getProduct()->getProductUrl());
+                    $product->setProductId($productId);
+                    $addedItems->push($product);
                 }
             }
 

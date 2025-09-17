@@ -8,17 +8,17 @@ interface CartAddInterface extends ExtensibleDataInterface
     /**
      * Get items
      *
-     * @return array|null
+     * @return \Sizebay\SizebayTracker\Api\Data\ProductInterface[]|null
      */
-    public function getItems();
+    public function getProducts();
 
     /**
      * Set items
      *
-     * @param array $items
+     * @param \Sizebay\SizebayTracker\Api\Data\ProductInterface[] $products
      * @return $this
      */
-    public function setItems(array $items);
+    public function setProducts(array $products);
 
     /**
      * Get session ID
