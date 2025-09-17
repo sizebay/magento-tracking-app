@@ -46,14 +46,7 @@ class SizebayTrackerCart implements ObserverInterface
     public function execute(Observer $observer)
     {
         try {
-            $quoteItem = $observer->getEvent()->getQuoteItem();
-
-            if (!$quoteItem) {
-                $this->logger->warning("SizebayTrackerCartAdd: No quote item found in event.");
-                return;
-            }
-
-            $product = $quoteItem->getProduct();
+            $product = $observer->getProduct();
             if (!$product || !$product->getId()) {
                 $this->logger->warning("SizebayTrackerCartAdd: No product found in quote item.");
                 return;
@@ -61,7 +54,7 @@ class SizebayTrackerCart implements ObserverInterface
 
             $productId = $product->getId();
             $permalink = $product->getProductUrl();
-            $quantity = $quoteItem->getQty();
+            $quantity = $product->getQty();
 
             $this->logger->info("SizebayTrackerCart: Product added [ID: $productId, Qty: $quantity, URL: $permalink]");
 
