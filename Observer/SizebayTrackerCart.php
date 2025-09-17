@@ -93,7 +93,7 @@ class SizebayTrackerCart implements ObserverInterface
                     $cartAdd->setSessionId($sessionId);
                     $cartAdd->setReferer($referer);
                     $cartAdd->setTenantId($tenantId);
-                    $cartAdd->setItems($addedItems);
+                    $cartAdd->setProducts($addedItems);
 
                     $this->cartAddPublisher->publish($cartAdd);
 
