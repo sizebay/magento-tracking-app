@@ -21,8 +21,11 @@ class CartAddConsumer
 
             $this->logger->info($url);
 
-            $items = array_map(function ($item) {
-                return json_decode($item, true); 
+            $items = array_map(function ($product) {
+                return [
+                    'product_id' => $product->getProductId(),
+                    'permalink'  => $product->getPermalink(),
+                ];
             }, $cartAdd->getProducts());
             
             $data = [
