@@ -1,6 +1,7 @@
 <?php
 namespace Sizebay\SizebayTracker\Model\Data;
 
+use Magento\Framework\Model\AbstractExtensibleModel;
 use Sizebay\SizebayTracker\Api\Data\CartAddInterface;
 
 class CartAdd extends AbstractExtensibleModel implements CartAddInterface

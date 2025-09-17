@@ -8,6 +8,7 @@ use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Checkout\Model\Session as CheckoutSession;
 use Sizebay\SizebayTracker\Model\Publisher\CartAddPublisher;
+use Magento\Store\Model\StoreManagerInterface;
 class SizebayTrackerCart implements ObserverInterface
 {
     protected $logger;
@@ -16,17 +17,21 @@ class SizebayTrackerCart implements ObserverInterface
     protected $cartAddPublisher;
 
     protected $cartAddFactory;
+    protected $storeManager;
+
 
     public function __construct(
         LoggerInterface $logger,
         ScopeConfigInterface $scopeConfig,
         CheckoutSession $checkoutSession,
         CartAddPublisher $cartAddPublisher,
-        Sizebay\SizebayTracker\Model\Data\CartAddFactory $cartAddFactory
+        StoreManagerInterface $storeManager,
+        \Sizebay\SizebayTracker\Model\Data\CartAddFactory $cartAddFactory
     ) {
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
         $this->checkoutSession = $checkoutSession;
+        $this->storeManager = $storeManager;
         $this->cartAddPublisher = $cartAddPublisher;
         $this->cartAddFactory = $cartAddFactory;
     }
