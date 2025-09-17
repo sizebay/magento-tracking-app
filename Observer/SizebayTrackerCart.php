@@ -45,41 +45,31 @@ class SizebayTrackerCart implements ObserverInterface
 
     public function execute(Observer $observer)
     {
-        if (!$this->isModuleActive()) {
-            $this->logger->info("SizebayTrackerCart skipped: module inactive.");
-            return;
-        }
-
         try {
-            $quote = $this->checkoutSession->getQuote();
-            $items = $quote->getAllVisibleItems();
-            $previousItems = $this->checkoutSession->getSizebayAddedItems() ?: [];
+            $product = $observer->getEvent()->getProduct();
 
-            $this->logger->info("SizebayTrackerCart: Current items in cart: " . count($items));
-            $this->logger->info("SizebayTrackerCart: Previously tracked items: " . json_encode($previousItems));
+            if (!$product || !$product->getId()) {
+                $this->logger->warning("SizebayTrackerCartAdd: No product found in event.");
+                return;
+            }
+
+            $this->logger->info("SizebayTrackerCart: Current items in cart: " . count($product));
 
             $addedItems = [];
-            foreach ($items as $item) {
-                $productId = $item->getProduct()->getId();
-                if (!in_array($productId, $previousItems)) {
+            foreach ($product as $p) {
+                $productId = $p->getId();
                     try {
                         $product = $this->productFactory->create();
-                        $product->setPermalink($item->getProduct()->getProductUrl());
+                        $product->setPermalink($p->getProductUrl());
                         $product->setProductId($productId);
 
                         $addedItems[] = $product;
 
-                        $this->logger->info("SizebayTrackerCart: New product added [ID: $productId, URL: " . $item->getProduct()->getProductUrl() . "]");
+                        $this->logger->info("SizebayTrackerCart: New product added [ID: $productId, URL: " . $p->getProductUrl() . "]");
                     } catch (\Exception $e) {
                         $this->logger->error("SizebayTrackerCart: Error creating product data for ID $productId - " . $e->getMessage());
                     }
-                }
             }
-
-            $this->checkoutSession->setSizebayAddedItems(array_merge(
-                $previousItems,
-                array_map(fn($p) => $p->getProductId(), $addedItems)
-            ));
 
             if (!empty($addedItems)) {
                 $tenantId = $this->scopeConfig->getValue('sizebay_sizebaytracker/settings/tenant_id', ScopeInterface::SCOPE_STORE);
@@ -101,7 +91,9 @@ class SizebayTrackerCart implements ObserverInterface
                             'sessionId' => $sessionId,
                             'tenantId'  => $tenantId,
                             'referer'   => $referer,
-                            'items'     => array_map(fn($p) => $p->getProductId(), $addedItems)
+                            'products'     => array_map(function ($p) {
+                                return $p->getProductId();
+                            }, $addedItems)
                         ]));
                 } catch (\Exception $e) {
                     $this->logger->error("SizebayTrackerCart: Failed to publish event - " . $e->getMessage());
