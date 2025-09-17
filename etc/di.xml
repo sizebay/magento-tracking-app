@@ -12,5 +12,7 @@
     <preference for="Sizebay\SizebayTracker\Api\Data\OrderTrackInterface" type="Sizebay\SizebayTracker\Model\Data\OrderTrack" />
     <preference for="Sizebay\SizebayTracker\Api\Data\CartAddInterface" type="Sizebay\SizebayTracker\Model\Data\CartAdd" />
     <preference for="Sizebay\SizebayTracker\Api\Data\OrderItemInterface" type="Sizebay\SizebayTracker\Model\Data\OrderItem" />
+    <preference for="Sizebay\SizebayTracker\Api\Data\ProductInterface" type="Sizebay\SizebayTracker\Model\Data\Product"/>
+
 
 </config>
