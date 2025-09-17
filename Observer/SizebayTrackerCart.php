@@ -46,9 +46,8 @@ class SizebayTrackerCart implements ObserverInterface
     public function execute(Observer $observer)
     {
         try {
-            $quoteItem = $observer->getEvent();
+            $quoteItem = $observer->getEvent()->getQuoteItem();
 
-            $this->logger->info($quoteItem);
             if (!$quoteItem) {
                 $this->logger->warning("SizebayTrackerCartAdd: No quote item found in event.");
                 return;
