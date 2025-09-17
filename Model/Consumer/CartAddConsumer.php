@@ -23,7 +23,6 @@ class CartAddConsumer
 
             $items = array_map(function ($product) {
                 return [
-                    'product_id' => $product->getProductId(),
                     'permalink'  => $product->getPermalink(),
                 ];
             }, $cartAdd->getProducts());
