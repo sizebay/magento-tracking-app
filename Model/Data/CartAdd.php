@@ -3,7 +3,7 @@ namespace Sizebay\SizebayTracker\Model\Data;
 
 use Sizebay\SizebayTracker\Api\Data\CartAddInterface;
 
-class CartAdd implements CartAddInterface
+class CartAdd extends AbstractExtensibleModel implements CartAddInterface
 {
     /**
      * @var array
