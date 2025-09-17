@@ -23,7 +23,7 @@ class CartAddConsumer
 
             $items = array_map(function ($item) {
                 return json_decode($item, true); 
-            }, $cartAdd->getItems());
+            }, $cartAdd->getProducts());
             
             $data = [
                 "products" => $items,
