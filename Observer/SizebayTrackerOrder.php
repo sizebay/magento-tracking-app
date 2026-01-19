@@ -4,6 +4,7 @@ namespace Sizebay\SizebayTracker\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
+use Magento\Framework\UrlInterface;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use sizebay\SizebayTracker\Model\Publisher\OrderPublisher;
@@ -79,7 +80,12 @@ class SizebayTrackerOrder implements ObserverInterface
                 $orderItem = $this->orderItemFactory->create();
                 $orderItem->setSku($item->getSku());
                 $orderItem->setQuantity((int)$item->getQtyOrdered());
-                $orderItem->setPrice((float)$item->getPrice());$permalink = $this->storeManager->getStore()->getBaseUrl() . $product->getId();
+                $orderItem->setPrice((float)$item->getPrice());
+                $baseUrl = $this->storeManager
+                    ->getStore(\Magento\Store\Model\Store::DEFAULT_STORE_ID)
+                    ->getBaseUrl(UrlInterface::URL_TYPE_WEB);
+
+                $permalink = rtrim($baseUrl, '/') . '/' . $product->getId();
                 $orderItem->setPermalink($permalink);
                 $orderItem->setSize($size);
                 $orderItem->setFeedProductId($product->getId());
